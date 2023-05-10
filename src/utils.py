@@ -22,24 +22,21 @@ from src.config import (
 )
 
 
-warnings.filterwarnings('ignore')
+warnings.filterwarnings("ignore")
 
 
 def getEmbeddingsModel(transformer_name: str):
     return SentenceTransformer(transformer_name)
 
 
-def getEmbeddings(
-        transformer_name: str,
-        docs_name: str,
-        docs):
-    model_n = transformer_name.split('/')[-1]
+def getEmbeddings(transformer_name: str, docs_name: str, docs):
+    model_n = transformer_name.split("/")[-1]
     path_ = f"data/embeddings/embeddings-{docs_name}-{model_n}.pkl"
     if os.path.isfile(os.path.join(path_)):
-        return pkl.load(open(f"./{path_}", 'rb'))
+        return pkl.load(open(f"./{path_}", "rb"))
     sentence_model = getEmbeddingsModel(transformer_name)
     embedding_ = sentence_model.encode(docs, show_progress_bar=False)
-    file_ = open(f"./{path_}", 'wb')
+    file_ = open(f"./{path_}", "wb")
     pkl.dump(embedding_, file_)
     file_.close()
     return embedding_
@@ -64,7 +61,7 @@ def getClusteringModel(params: hdbscan_data):
 
 
 def getTokenizer(params: tokenizer_data):
-    return CountVectorizer(stop_words=params.langage)
+    return CountVectorizer(stop_words=params.language)
 
 
 def getTfidfTransformers(params: tfidf_data):

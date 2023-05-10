@@ -5,7 +5,7 @@ from .configs import (
     tfidf_data,
     tokenizer_data,
     mmr_data,
-    bertopic_data
+    bertopic_data,
 )
 
 
@@ -16,5 +16,5 @@ __all__ = [
     "tfidf_data",
     "tokenizer_data",
     "mmr_data",
-    "bertopic_data"
+    "bertopic_data",
 ]

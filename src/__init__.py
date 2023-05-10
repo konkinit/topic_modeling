@@ -7,7 +7,7 @@ from .utils import (
     getEmbeddingsModel,
     getTfidfTransformers,
     getTokenizer,
-    create_wordcloud
+    create_wordcloud,
 )
 from .modeling import bert_topic
 
@@ -21,5 +21,5 @@ __all__ = [
     "getTfidfTransformers",
     "getTokenizer",
     "create_wordcloud",
-    "bert_topic"
+    "bert_topic",
 ]

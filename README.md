@@ -4,8 +4,10 @@ A BERTopic-based modeling project
 
 ## To Do
 
+- Add french stop_words
 
 ## Getting Started
+
 
 
 ## References

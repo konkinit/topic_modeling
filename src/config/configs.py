@@ -1,5 +1,9 @@
 from dataclasses import dataclass
-from typing import Any
+from bertopic.vectorizers import ClassTfidfTransformer
+from bertopic.representation import MaximalMarginalRelevance
+from hdbscan import HDBSCAN
+from umap import UMAP
+from sklearn.feature_extraction.text import CountVectorizer
 
 
 @dataclass
@@ -9,7 +13,7 @@ class sent_transformers_data:
 
 @dataclass
 class tokenizer_data:
-    langage: str = "french"
+    language: str = "english"
 
 
 @dataclass
@@ -20,7 +24,7 @@ class tfidf_data:
 @dataclass
 class mmr_data:
     diversity: float = 0.2
-    top_n_words: int = 10
+    top_n_words: int = 15
 
 
 @dataclass
@@ -41,12 +45,12 @@ class hdbscan_data:
 
 @dataclass
 class bertopic_data:
+    umap_model: UMAP
+    hdbscan_model: HDBSCAN
+    vectorizer_model: CountVectorizer
+    ctfidf_model: ClassTfidfTransformer
+    mmr_model: MaximalMarginalRelevance
     nr_topics: str = "auto"
-    top_n_words: int = 10
+    top_n_words: int = 15
     n_gram_range: tuple = (1, 3)
     min_topic_size: int = 10
-    umap_model: Any
-    hdbscan_model: Any
-    vectorizer_model: Any
-    ctfidf_model: Any
-    mmr_model: Any
