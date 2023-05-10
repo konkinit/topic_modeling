@@ -1,18 +1,20 @@
 from .configs import (
-    umap_params,
-    hdbscan_params,
-    sent_transformers_params,
-    tfidf_params,
-    tokenizer_params,
-    MMR_params,
+    umap_data,
+    hdbscan_data,
+    sent_transformers_data,
+    tfidf_data,
+    tokenizer_data,
+    mmr_data,
+    bertopic_data
 )
 
 
 __all__ = [
-    "umap_params",
-    "hdbscan_params",
-    "sent_transformers_params",
-    "tfidf_params",
-    "tokenizer_params",
-    "MMR_params",
+    "umap_data",
+    "hdbscan_data",
+    "sent_transformers_data",
+    "tfidf_data",
+    "tokenizer_data",
+    "mmr_data",
+    "bertopic_data"
 ]

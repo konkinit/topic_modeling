@@ -1,22 +1,25 @@
 from .config import configs
 from .utils import (
-    getClusteringObj,
-    getDimReductionObj,
+    getClusteringModel,
+    getDimReductionModel,
     getEmbeddings,
     getMaximalMarginalRelevance,
-    getSentenceTransformers,
+    getEmbeddingsModel,
     getTfidfTransformers,
-    getTokenizer
+    getTokenizer,
+    create_wordcloud
 )
-
+from .modeling import bert_topic
 
 __all__ = [
     "configs",
-    "getClusteringObj",
-    "getDimReductionObj",
+    "getClusteringModel",
+    "getDimReductionModel",
     "getEmbeddings",
     "getMaximalMarginalRelevance",
-    "getSentenceTransformers",
+    "getEmbeddingsModel",
     "getTfidfTransformers",
-    "getTokenizer"
+    "getTokenizer",
+    "create_wordcloud",
+    "bert_topic"
 ]

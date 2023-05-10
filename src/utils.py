@@ -2,6 +2,7 @@ import os
 import sys
 import matplotlib.pyplot as plt
 import pickle as pkl
+import warnings
 from bertopic.vectorizers import ClassTfidfTransformer
 from bertopic.representation import MaximalMarginalRelevance
 from hdbscan import HDBSCAN
@@ -12,35 +13,39 @@ from wordcloud import WordCloud
 
 if os.getcwd() not in sys.path:
     sys.path.append(os.getcwd())
-from .config import (
-    umap_params,
-    hdbscan_params,
-    sent_transformers_params,
-    tfidf_params,
-    tokenizer_params,
-    MMR_params,
+from src.config import (
+    umap_data,
+    hdbscan_data,
+    tfidf_data,
+    tokenizer_data,
+    mmr_data
 )
 
 
-def getSentenceTransformers(params: sent_transformers_params):
-    return SentenceTransformer(params.model_name)
+warnings.filterwarnings('ignore')
+
+
+def getEmbeddingsModel(transformer_name: str):
+    return SentenceTransformer(transformer_name)
 
 
 def getEmbeddings(
-        params: sent_transformers_params,
+        transformer_name: str,
         docs_name: str,
         docs):
-    model_n = params.model_name.split('/')[-1]
-    path_ = f"data/embeddings-{docs_name}-{model_n}.pkl"
+    model_n = transformer_name.split('/')[-1]
+    path_ = f"data/embeddings/embeddings-{docs_name}-{model_n}.pkl"
     if os.path.isfile(os.path.join(path_)):
         return pkl.load(open(f"./{path_}", 'rb'))
-    sentence_model = getSentenceTransformers(params)
+    sentence_model = getEmbeddingsModel(transformer_name)
     embedding_ = sentence_model.encode(docs, show_progress_bar=False)
-    pkl.dump(embedding_, open(f"./{path_}", "wb"))
+    file_ = open(f"./{path_}", 'wb')
+    pkl.dump(embedding_, file_)
+    file_.close()
     return embedding_
 
 
-def getDimReductionObj(params: umap_params):
+def getDimReductionModel(params: umap_data):
     return UMAP(
         n_neighbors=params.n_neighbors,
         n_components=params.n_components,
@@ -49,7 +54,7 @@ def getDimReductionObj(params: umap_params):
     )
 
 
-def getClusteringObj(params: hdbscan_params):
+def getClusteringModel(params: hdbscan_data):
     return HDBSCAN(
         min_cluster_size=params.min_cluster_size,
         metric=params.metric,
@@ -58,17 +63,17 @@ def getClusteringObj(params: hdbscan_params):
     )
 
 
-def getTokenizer(params: tokenizer_params):
+def getTokenizer(params: tokenizer_data):
     return CountVectorizer(stop_words=params.langage)
 
 
-def getTfidfTransformers(params: tfidf_params):
+def getTfidfTransformers(params: tfidf_data):
     return ClassTfidfTransformer(
         reduce_frequent_words=params.reduce_freq_words
     )
 
 
-def getMaximalMarginalRelevance(params: MMR_params):
+def getMaximalMarginalRelevance(params: mmr_data):
     return MaximalMarginalRelevance(
         diversity=params.diversity, top_n_words=params.top_n_words
     )
