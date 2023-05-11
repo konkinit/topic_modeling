@@ -8,3 +8,4 @@ protobuf==3.19.0
 flake8==6.0.0
 streamlit==1.22.0
 black==23.3.0
+stop-words==2018.7.23

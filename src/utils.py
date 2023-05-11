@@ -31,7 +31,7 @@ def getEmbeddingsModel(transformer_name: str):
 
 def getEmbeddings(transformer_name: str, docs_name: str, docs):
     model_n = transformer_name.split("/")[-1]
-    path_ = f"data/embeddings/embeddings-{docs_name}-{model_n}.pkl"
+    path_ = f"data/embeddings-{docs_name}-{model_n}.pkl"
     if os.path.isfile(os.path.join(path_)):
         return pkl.load(open(f"./{path_}", "rb"))
     sentence_model = getEmbeddingsModel(transformer_name)
@@ -57,17 +57,26 @@ def getClusteringModel(params: hdbscan_data):
         metric=params.metric,
         cluster_selection_method=params.cluster_selection_method,
         prediction_data=params.prediction_data,
+        gen_min_span_tree=params.gen_min_span_tree,
     )
 
 
+def getFrenchStopWords():
+    pass
+
+
 def getTokenizer(params: tokenizer_data):
-    return CountVectorizer(stop_words=params.language)
+    return (
+        CountVectorizer(stop_words=params.language)
+        if params.language == "english"
+        else "pass"
+    )
 
 
 def getTfidfTransformers(params: tfidf_data):
     return ClassTfidfTransformer(
         reduce_frequent_words=params.reduce_freq_words
-    )
+        )
 
 
 def getMaximalMarginalRelevance(params: mmr_data):

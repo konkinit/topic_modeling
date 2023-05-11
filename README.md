@@ -4,7 +4,7 @@ A BERTopic-based modeling project
 
 ## To Do
 
-- Add french stop_words
+- Add `french` stop_words
 
 ## Getting Started
 

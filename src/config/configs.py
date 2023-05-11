@@ -41,6 +41,7 @@ class hdbscan_data:
     metric: str = "euclidean"
     cluster_selection_method: str = "eom"
     prediction_data: bool = True
+    gen_min_span_tree: bool = True
 
 
 @dataclass
