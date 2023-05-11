@@ -67,9 +67,16 @@ def context_stopword(language: str, list_custom_sw: List[str]):
 
 def getTokenizer(params: tokenizer_data, list_custom_sw: List[str]):
     return (
-        CountVectorizer(stop_words=params.language)
+        CountVectorizer(
+            min_df=params.min_df,
+            ngram_range=params.ngram_range,
+            stop_words=params.language
+            )
         if params.language == "english"
         else CountVectorizer(
+            max_df=params.max_df,
+            min_df=params.min_df,
+            ngram_range=params.ngram_range,
             stop_words=context_stopword(
                 params.language,
                 context_stopword(params.language, list_custom_sw)

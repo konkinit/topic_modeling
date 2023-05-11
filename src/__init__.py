@@ -1,4 +1,5 @@
 from .config import configs
+from .data_preprocess import preprocess
 from .utils import (
     getClusteringModel,
     getDimReductionModel,
@@ -15,6 +16,7 @@ from .modeling import bert_topic
 
 __all__ = [
     "configs",
+    "preprocess",
     "getClusteringModel",
     "getDimReductionModel",
     "getEmbeddings",
