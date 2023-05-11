@@ -13,9 +13,6 @@ class sent_transformers_data:
 
 @dataclass
 class tokenizer_data:
-    max_df: float = 0.8
-    min_df: int = 2
-    ngram_range: tuple = (1, 1)
     language: str = "english"
 
 
@@ -26,13 +23,13 @@ class tfidf_data:
 
 @dataclass
 class mmr_data:
-    diversity: float = 0.5
-    top_n_words: int = 15
+    diversity: float = 0.3
+    top_n_words: int = 10
 
 
 @dataclass
 class umap_data:
-    n_neighbors: int = 15
+    n_neighbors: int = 10
     n_components: int = 5
     min_dist: float = 0.0
     metric: str = "cosine"
@@ -40,7 +37,7 @@ class umap_data:
 
 @dataclass
 class hdbscan_data:
-    min_cluster_size: int = 15
+    min_cluster_size: int = 10
     metric: str = "euclidean"
     cluster_selection_method: str = "eom"
     prediction_data: bool = True
@@ -54,7 +51,7 @@ class bertopic_data:
     vectorizer_model: CountVectorizer
     ctfidf_model: ClassTfidfTransformer
     mmr_model: MaximalMarginalRelevance
-    nr_topics: str = "auto"
-    top_n_words: int = 15
+    nr_topics: str = None
+    top_n_words: int = 10
     n_gram_range: tuple = (1, 3)
     min_topic_size: int = 10
