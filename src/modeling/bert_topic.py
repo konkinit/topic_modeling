@@ -47,7 +47,7 @@ class BERTopic_:
     def visual_inference(self,):
         n_topics_ = max(self.model.topics_)
         fig = self.model.visualize_barchart(
-            topics=range(n_topics_),
+            topics=list(range(n_topics_+1)),
             n_words=10,
             width=300,
             height=300

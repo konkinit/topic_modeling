@@ -1,7 +1,9 @@
 import os
 import sys
+import re
 import matplotlib.pyplot as plt
 import pickle as pkl
+import multidict as multidict
 import warnings
 from bertopic.vectorizers import ClassTfidfTransformer
 from bertopic.representation import MaximalMarginalRelevance
@@ -9,16 +11,14 @@ from hdbscan import HDBSCAN
 from umap import UMAP
 from sklearn.feature_extraction.text import CountVectorizer
 from sentence_transformers import SentenceTransformer
+from stop_words import get_stop_words
+from typing import List
 from wordcloud import WordCloud
 
 if os.getcwd() not in sys.path:
     sys.path.append(os.getcwd())
 from src.config import (
-    umap_data,
-    hdbscan_data,
-    tfidf_data,
-    tokenizer_data,
-    mmr_data
+    umap_data, hdbscan_data, tfidf_data, tokenizer_data, mmr_data
 )
 
 
@@ -61,15 +61,20 @@ def getClusteringModel(params: hdbscan_data):
     )
 
 
-def getFrenchStopWords():
-    pass
+def context_stopword(language: str, list_custom_sw: List[str]):
+    return get_stop_words(language) + list_custom_sw
 
 
-def getTokenizer(params: tokenizer_data):
+def getTokenizer(params: tokenizer_data, list_custom_sw: List[str]):
     return (
         CountVectorizer(stop_words=params.language)
         if params.language == "english"
-        else "pass"
+        else CountVectorizer(
+            stop_words=context_stopword(
+                params.language,
+                context_stopword(params.language, list_custom_sw)
+            )
+        )
     )
 
 
@@ -89,6 +94,33 @@ def create_wordcloud(model, topic: int):
     text = {word: value for word, value in model.get_topic(topic)}
     wc = WordCloud(background_color="white", max_words=1000)
     wc.generate_from_frequencies(text)
+    plt.imshow(wc, interpolation="bilinear")
+    plt.axis("off")
+    plt.show()
+
+
+def getFrequencyDictForText(
+            sentence: str,
+            language: str,
+            list_custom_sw: List[str]):
+    fullTermsDict = multidict.MultiDict()
+    tmpDict = {}
+    stopword_str = "|".join(context_stopword(language, list_custom_sw))
+    for text in sentence.split(" "):
+        if re.match(stopword_str, text):
+            continue
+        val = tmpDict.get(text, 0)
+        tmpDict[text.lower()] = val + 1
+    for key in tmpDict:
+        fullTermsDict.add(key, tmpDict[key])
+    return fullTermsDict
+
+
+def global_wordcloud(docs: str, language: str, list_custom_sw: List[str]):
+    vocab_ = getFrequencyDictForText(docs, language, list_custom_sw)
+    wc = WordCloud(background_color="white", max_words=1000)
+    wc.generate_from_frequencies(vocab_)
+    plt.figure(figsize=(10, 7.5))
     plt.imshow(wc, interpolation="bilinear")
     plt.axis("off")
     plt.show()

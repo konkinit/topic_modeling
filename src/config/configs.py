@@ -8,7 +8,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 
 @dataclass
 class sent_transformers_data:
-    model_name: str = "dangvantuan/sentence-camembert-large"
+    model_name: str = "dangvantuan/sentence-camembert-base"
 
 
 @dataclass

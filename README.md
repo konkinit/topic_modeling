@@ -2,15 +2,15 @@
 
 A BERTopic-based modeling project
 
-## To Do
-
-- Add `french` stop_words
-
 ## Getting Started
 
-
+```bash
+docker pull ...
+```
 
 ## References
+
+[BERTopic Official Documentation](https://maartengr.github.io/BERTopic/index.html)
 
 ```bib
 @article{grootendorst2022bertopic,
