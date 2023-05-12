@@ -1,8 +1,8 @@
-# Topic Modeling based on BERTopic
+# Topic Modeling with on BERTopic
 
 ## Description
 
-
+The project ...
 
 ## Getting Started
 
@@ -11,7 +11,7 @@ docker pull kidrissa/bertopicapp:latest
 ```
 
 ```bash
-docker run -p 8501:8501 -tdkidrissa/bertopicapp:latest
+docker run -p 8501:8501 -d kidrissa/bertopicapp:latest
 ```
 
 ## References
