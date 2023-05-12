@@ -54,5 +54,5 @@ class bertopic_data:
     mmr_model: MaximalMarginalRelevance
     nr_topics: Union[str, int] = "auto"
     top_n_words: int = 10
-    n_gram_range: tuple = (1, 2)
+    n_gram_range: tuple = (1, 1)
     min_topic_size: int = 10

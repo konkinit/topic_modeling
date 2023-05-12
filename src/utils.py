@@ -1,6 +1,5 @@
 import os
 import sys
-import re
 import matplotlib.pyplot as plt
 import pickle as pkl
 import multidict as multidict
@@ -11,7 +10,6 @@ from hdbscan import HDBSCAN
 from umap import UMAP
 from sklearn.feature_extraction.text import CountVectorizer
 from sentence_transformers import SentenceTransformer
-from stop_words import get_stop_words
 from typing import List
 from wordcloud import WordCloud
 
@@ -62,7 +60,10 @@ def getClusteringModel(params: hdbscan_data):
 
 
 def context_stopword(language: str, list_custom_sw: List[str]):
-    return get_stop_words(language) + list_custom_sw
+    with open(f'./data/sw-{language}.txt') as f:
+        sw_ = [line.strip() for line in f.readlines()]
+    f.close()
+    return sw_ + list_custom_sw
 
 
 def getTokenizer(params: tokenizer_data, list_custom_sw: List[str]):
@@ -107,9 +108,9 @@ def getFrequencyDictForText(
             list_custom_sw: List[str]):
     fullTermsDict = multidict.MultiDict()
     tmpDict = {}
-    stopword_str = "|".join(context_stopword(language, list_custom_sw))
+    stopword_list = context_stopword(language, list_custom_sw)
     for text in sentence.split(" "):
-        if re.match(stopword_str, text):
+        if text in stopword_list:
             continue
         val = tmpDict.get(text, 0)
         tmpDict[text.lower()] = val + 1
@@ -122,7 +123,8 @@ def global_wordcloud(docs: str, language: str, list_custom_sw: List[str]):
     vocab_ = getFrequencyDictForText(docs, language, list_custom_sw)
     wc = WordCloud(background_color="white", max_words=1000)
     wc.generate_from_frequencies(vocab_)
-    plt.figure(figsize=(10, 7.5))
+    plt.figure(figsize=(10, 8))
     plt.imshow(wc, interpolation="bilinear")
+    plt.savefig("./data/wordcloud-corpus.png", dpi=500)
     plt.axis("off")
     plt.show()
