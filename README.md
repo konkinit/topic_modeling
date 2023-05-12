@@ -3,6 +3,9 @@
 <p align="left">
   <img alt="GitHub License" src="https://img.shields.io/github/license/konkinit/topic_modeling?style=for-the-badge">
   <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/konkinit/topic_modeling?style=for-the-badge">
+  <a href="https://www.python.org/downloads/release/python-3100/" target="_blank">
+    <img src="https://img.shields.io/badge/python-3.10-blue.svg?style=for-the-badge" alt="Python Version"/>
+  </a>
 </br>
 </p>
 

@@ -1,5 +1,5 @@
 # data Directory
 
 This dir is designed to host raw data, embeddings to speed up 
-model training, ...
+model training, and so on.
  

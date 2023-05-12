@@ -1,5 +1,6 @@
 import os
 import sys
+import re
 import matplotlib.pyplot as plt
 import pickle as pkl
 import multidict as multidict
@@ -26,6 +27,13 @@ from src.config import (
 
 
 warnings.filterwarnings("ignore")
+
+
+def email_check(text: str) -> bool:
+    regex = re.compile(
+        r"([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+"
+    )
+    return re.fullmatch(regex, text) is not None
 
 
 def getEmbeddingsModel(
@@ -163,8 +171,13 @@ def global_wordcloud(
     vocab_ = getFrequencyDictForText(docs, language, list_custom_sw)
     wc = WordCloud(background_color="white", max_words=1000)
     wc.generate_from_frequencies(vocab_)
-    plt.figure(figsize=(10, 8))
+    plt.figure(figsize=(10, 8), facecolor='k')
     plt.imshow(wc, interpolation="bilinear")
-    # plt.savefig("./data/wordcloud-corpus.png", dpi=500)
+    plt.savefig(
+        "./data/wordcloud-corpus.png",
+        facecolor='k',
+        bbox_inches='tight',
+        dpi=500
+    )
     plt.axis("off")
     plt.show()

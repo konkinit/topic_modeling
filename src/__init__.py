@@ -9,6 +9,7 @@ from .utils import (
     getTfidfTransformers,
     getTokenizer,
     create_wordcloud,
+    email_check,
     global_wordcloud,
     getFrequencyDictForText
 )
@@ -21,6 +22,7 @@ __all__ = [
     "getDimReductionModel",
     "getEmbeddings",
     "getMaximalMarginalRelevance",
+    "email_check",
     "getEmbeddingsModel",
     "getTfidfTransformers",
     "getTokenizer",
