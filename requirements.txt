@@ -2,6 +2,7 @@ flake8
 pytest
 pandas==1.5.3
 pytest==7.3.1
+python-dev-tools==2023.3.24
 hdbscan==0.8.29
 bertopic==0.14.1
 nltk==3.8.1
