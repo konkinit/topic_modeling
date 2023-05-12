@@ -1,5 +1,11 @@
 # Topic Modeling with on BERTopic
 
+<p align="left">
+  <img alt="GitHub License" src="https://img.shields.io/github/license/konkinit/topic_modeling?style=for-the-badge">
+  <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/konkinit/topic_modeling?style=for-the-badge">
+</br>
+</p>
+
 ## Description
 
 The project ...

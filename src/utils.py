@@ -7,10 +7,15 @@ import warnings
 from bertopic.vectorizers import ClassTfidfTransformer
 from bertopic.representation import MaximalMarginalRelevance
 from hdbscan import HDBSCAN
+from numpy import ndarray
 from umap import UMAP
+from torch import Tensor
 from sklearn.feature_extraction.text import CountVectorizer
 from sentence_transformers import SentenceTransformer
-from typing import List
+from typing import (
+    List,
+    Union
+)
 from wordcloud import WordCloud
 
 if os.getcwd() not in sys.path:
@@ -23,11 +28,26 @@ from src.config import (
 warnings.filterwarnings("ignore")
 
 
-def getEmbeddingsModel(transformer_name: str):
+def getEmbeddingsModel(
+        transformer_name: str
+) -> SentenceTransformer:
+    """Configure and Return an Embedding model
+
+    Args:
+        transformer_name (str): name of the transformer
+
+    Returns:
+        SentenceTransformer: an objectif of type
+            SentenceTransformer
+    """
     return SentenceTransformer(transformer_name)
 
 
-def getEmbeddings(transformer_name: str, docs_name: str, docs):
+def getEmbeddings(
+        transformer_name: str,
+        docs_name: str,
+        docs
+) -> Union[List[Tensor], ndarray, Tensor]:
     model_n = transformer_name.split("/")[-1]
     path_ = f"data/embeddings-{docs_name}-{model_n}.pkl"
     if os.path.isfile(os.path.join(path_)):
@@ -40,7 +60,15 @@ def getEmbeddings(transformer_name: str, docs_name: str, docs):
     return embedding_
 
 
-def getDimReductionModel(params: umap_data):
+def getDimReductionModel(params: umap_data) -> UMAP:
+    """Configure and Return an UMAP object
+
+    Args:
+        params (umap_data): config parameters
+
+    Returns:
+        UMAP: object to pass into BERTopic
+    """
     return UMAP(
         n_neighbors=params.n_neighbors,
         n_components=params.n_components,
@@ -49,7 +77,7 @@ def getDimReductionModel(params: umap_data):
     )
 
 
-def getClusteringModel(params: hdbscan_data):
+def getClusteringModel(params: hdbscan_data) -> HDBSCAN:
     return HDBSCAN(
         min_cluster_size=params.min_cluster_size,
         metric=params.metric,
@@ -119,12 +147,24 @@ def getFrequencyDictForText(
     return fullTermsDict
 
 
-def global_wordcloud(docs: str, language: str, list_custom_sw: List[str]):
+def global_wordcloud(
+        docs: str,
+        language: str,
+        list_custom_sw: List[str]
+) -> None:
+    """Plot a worcloud image
+
+    Args:
+        docs (str): sentence
+        language (str): doc language
+        list_custom_sw (List[str]): stopword based on the language
+        and the context
+    """
     vocab_ = getFrequencyDictForText(docs, language, list_custom_sw)
     wc = WordCloud(background_color="white", max_words=1000)
     wc.generate_from_frequencies(vocab_)
     plt.figure(figsize=(10, 8))
     plt.imshow(wc, interpolation="bilinear")
-    plt.savefig("./data/wordcloud-corpus.png", dpi=500)
+    # plt.savefig("./data/wordcloud-corpus.png", dpi=500)
     plt.axis("off")
     plt.show()
