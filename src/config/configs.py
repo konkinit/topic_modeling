@@ -9,7 +9,7 @@ from typing import Union
 
 @dataclass
 class sent_transformers_data:
-    model_name: str = "dangvantuan/sentence-camembert-base"
+    model_name: str = "dangvantuan/sentence-camembert-large"
 
 
 @dataclass
@@ -24,7 +24,7 @@ class tfidf_data:
 
 @dataclass
 class mmr_data:
-    diversity: float = 0.7
+    diversity: float = 0.4
     top_n_words: int = 10
 
 
@@ -54,5 +54,5 @@ class bertopic_data:
     mmr_model: MaximalMarginalRelevance
     nr_topics: Union[str, int] = "auto"
     top_n_words: int = 10
-    n_gram_range: tuple = (1, 1)
-    min_topic_size: int = 10
+    n_gram_range: tuple = (1, 2)
+    min_topic_size: int = 5
