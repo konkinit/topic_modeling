@@ -4,6 +4,9 @@ COPY . /topic_modeling
 
 WORKDIR /topic_modeling
 
+RUN apt-get update && \
+    apt-get -y install gcc
+
 RUN pip install --upgrade pip && \
     pip install -r requirements.txt && \
     python3 -m spacy download fr_core_news_md && \
