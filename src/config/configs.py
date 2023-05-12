@@ -4,6 +4,7 @@ from bertopic.representation import MaximalMarginalRelevance
 from hdbscan import HDBSCAN
 from umap import UMAP
 from sklearn.feature_extraction.text import CountVectorizer
+from typing import Union
 
 
 @dataclass
@@ -23,7 +24,7 @@ class tfidf_data:
 
 @dataclass
 class mmr_data:
-    diversity: float = 0.3
+    diversity: float = 0.7
     top_n_words: int = 10
 
 
@@ -51,7 +52,7 @@ class bertopic_data:
     vectorizer_model: CountVectorizer
     ctfidf_model: ClassTfidfTransformer
     mmr_model: MaximalMarginalRelevance
-    nr_topics: str = None
+    nr_topics: Union[str, int] = "auto"
     top_n_words: int = 10
     n_gram_range: tuple = (1, 3)
     min_topic_size: int = 10
