@@ -1,8 +1,8 @@
 name: bertopicapp_test_build
 
 on:
-  - push:
-    - branch: ["main"]
+  push:
+    branches: ["main"]
 
 permissions:
   contents: read
