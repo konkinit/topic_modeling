@@ -39,4 +39,4 @@ jobs:
       - name: Push Docker Image
         run: |
           docker login -u 'kidrissa' -p ${{secrets.DOCKER_PASSWORD}}
-          docker push --all-tags kidrissa/bertopicapp:latest
+          docker push --all-tags kidrissa/bertopicapp
