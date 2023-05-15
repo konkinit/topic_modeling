@@ -11,6 +11,8 @@ wordcloud
 protobuf
 flake8
 streamlit
+multidict
 spacy
+spacy_langdetect
 black
 stop-words

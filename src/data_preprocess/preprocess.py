@@ -5,17 +5,30 @@ from nltk.tokenize import word_tokenize
 from nltk.stem.snowball import SnowballStemmer
 from spacy import load
 from typing import List
+from spacy_langdetect import LanguageDetector
+from spacy.language import Language
 
 if os.getcwd() not in sys.path:
     sys.path.append(os.getcwd())
 from src.utils import context_stopword, email_check
 
 
+@Language.factory('language_detector')
+def language_detector(nlp, name):
+    return LanguageDetector()
+
+
 class Preprocessing:
     def __init__(self, model_name, language, _context_stopwords):
         self.nlp = load(model_name)
+        self.nlp.max_length = 2000000
+        self.nlp.add_pipe('language_detector', last=True)
         self.stemmer = SnowballStemmer(language=language)
         self.stop_words_ = context_stopword(language, _context_stopwords)
+
+    def getLanguage(self, text: str) -> str:
+        doc = self.nlp(text)
+        return doc._.language['language']
 
     def tokenize(self, text: str) -> List[str]:
         return word_tokenize(text)
