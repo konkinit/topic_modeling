@@ -171,7 +171,7 @@ def global_wordcloud(
     vocab_ = getFrequencyDictForText(docs, language, list_custom_sw)
     wc = WordCloud(background_color="white", max_words=1000)
     wc.generate_from_frequencies(vocab_)
-    plt.figure(figsize=(10, 8), facecolor='k')
+    plt.figure(figsize=(10, 8))#, facecolor='k')
     plt.imshow(wc, interpolation="bilinear")
     plt.savefig(
         "./data/wordcloud-corpus.png",

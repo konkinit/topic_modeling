@@ -20,6 +20,7 @@ men
 vouss
 ner
 gnralement
+depuits
 jer
 essqu
 déjà
@@ -32,6 +33,7 @@ pourtant
 aulieu
 cordiale
 cordialement
+eventuellement
 actuellement
 quelqu
 club
@@ -48,6 +50,7 @@ jaurais
 eur
 peuton
 aije
+nont
 vaisje
 avezvous
 narrive
@@ -81,6 +84,7 @@ utiliser
 regarder
 souscrire
 passer
+survenir
 celer
 voir
 venir

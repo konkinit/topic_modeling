@@ -44,7 +44,7 @@ class BERTopic_:
             self.model.get_document_info(docs)
         )
 
-    def visual_inference(self,):
+    def barchart_(self,):
         n_topics_ = max(self.model.topics_)
         fig = self.model.visualize_barchart(
             topics=list(range(n_topics_+1)),
@@ -53,3 +53,9 @@ class BERTopic_:
             height=300
         )
         fig.show()
+
+    def heatmap_(self):
+        self.model.visualize_heatmap()
+
+    def intertopic_(self):
+        self.model.visualize_topics()

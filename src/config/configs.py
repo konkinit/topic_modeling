@@ -14,7 +14,7 @@ class sent_transformers_data:
 
 @dataclass
 class tokenizer_data:
-    language: str = "english"
+    language: str = "french"
 
 
 @dataclass
@@ -24,7 +24,7 @@ class tfidf_data:
 
 @dataclass
 class mmr_data:
-    diversity: float = 0.4
+    diversity: float = 0.7
     top_n_words: int = 10
 
 
