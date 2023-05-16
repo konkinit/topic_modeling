@@ -7,6 +7,7 @@ quun
 tjrs
 tjr
 dun
+salut
 aussitt
 bonjour
 bnjr
@@ -36,6 +37,10 @@ cordialement
 eventuellement
 actuellement
 quelqu
+svp
+aujourdhui
+dune
+my
 club
 total
 tal
@@ -46,6 +51,10 @@ totalenergier
 totalenergi
 question
 jai
+jenvoie
+jaimerer
+pouvezvous
+til
 jaurais
 eur
 peuton
@@ -87,6 +96,8 @@ passer
 survenir
 celer
 voir
+plaire
+falloir
 venir
 navoir
 crer
