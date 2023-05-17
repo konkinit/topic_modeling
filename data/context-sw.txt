@@ -36,6 +36,7 @@ chqu
 club
 comprendre
 cordiale
+croire
 cordialement
 crer
 dacc
@@ -58,6 +59,7 @@ er
 esque
 essqu
 estce
+estc
 estil
 eter
 eur
@@ -69,6 +71,7 @@ fonctionner
 gnralement
 go
 he
+enregistrer
 ja
 jai
 jaimerer
@@ -86,11 +89,22 @@ ke
 lacc
 lai
 lavoir
+diqu
+lin
+eme
+mo
+sen
+presqu
+jétais
 m
 mai
 men
 mettre
 mexpliquer
+jattends
+pourraisje
+estell
+not
 mme
 monsieur
 mr
@@ -102,6 +116,7 @@ navoir
 ner
 nest
 nont
+not
 ntes
 obtenir
 offrir
@@ -121,6 +136,7 @@ pouvezvous
 pouvoir
 prendre
 ps
+pkoi
 puisje
 qd
 qq
@@ -147,6 +163,7 @@ sest
 sm
 sontils
 sou
+sui
 souhaiter
 souscrire
 survenir
@@ -174,3 +191,7 @@ ya
 yer
 énergie
 ’
+finir
+terminer
+suisje
+sui

@@ -10,7 +10,7 @@ from spacy.language import Language
 
 if os.getcwd() not in sys.path:
     sys.path.append(os.getcwd())
-from src.utils import context_stopword, email_check
+from src.utils import context_stopwords, email_check
 
 
 @Language.factory('language_detector')
@@ -24,7 +24,7 @@ class Preprocessing:
         self.nlp.max_length = 2000000
         self.nlp.add_pipe('language_detector', last=True)
         self.stemmer = SnowballStemmer(language=language)
-        self.stop_words_ = context_stopword(language, _context_stopwords)
+        self.stop_words_ = context_stopwords(language, _context_stopwords)
 
     def getLanguage(self, text: str) -> str:
         doc = self.nlp(text)
@@ -73,9 +73,11 @@ class Preprocessing:
         )
 
     def remove_stopwords(self, text: str) -> str:
-        return " ".join(
-            [i for i in self.tokenize(text) if i not in self.stop_words_]
-            )
+        clean_token = []
+        for t in self.tokenize(text):
+            if not (t in self.stop_words_):
+                clean_token.append(t)
+        return " ".join(clean_token)
 
     def pipeline(self, text: str) -> str:
         return self.remove_stopwords(

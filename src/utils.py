@@ -99,6 +99,14 @@ def getDimReductionModel(params: umap_data) -> UMAP:
 
 
 def getClusteringModel(params: hdbscan_data) -> HDBSCAN:
+    """Configure and return clustering model
+
+    Args:
+        params (hdbscan_data): config parameters
+
+    Returns:
+        HDBSCAN: object to pass into BERTopic
+    """
     return HDBSCAN(
         min_cluster_size=params.min_cluster_size,
         metric=params.metric,
@@ -108,11 +116,22 @@ def getClusteringModel(params: hdbscan_data) -> HDBSCAN:
     )
 
 
-def context_stopword(language: str, list_custom_sw: List[str]):
+def context_stopwords(language: str, list_custom_sw: List[str]) -> List:
+    """Union offical language stopword and context stop_word and 
+    return a list of stop_word
+
+    Args:
+        language (str): documents language
+        list_custom_sw (List[str]): custom stopwords based 
+        on a the context
+
+    Returns:
+        List: stop-words
+    """
     with open(f'./data/sw-{language}.txt') as f:
         sw_ = [line.strip() for line in f.readlines()]
     f.close()
-    return sw_ + list_custom_sw
+    return list(set(list_custom_sw+sw_))
 
 
 def getTokenizer(params: tokenizer_data, list_custom_sw: List[str]):
@@ -124,10 +143,7 @@ def getTokenizer(params: tokenizer_data, list_custom_sw: List[str]):
         if params.language == "english"
         else CountVectorizer(
             min_df=params.min_df,
-            stop_words=context_stopword(
-                params.language,
-                context_stopword(params.language, list_custom_sw)
-            )
+            stop_words=context_stopwords(params.language, list_custom_sw)
         )
     )
 
@@ -159,7 +175,7 @@ def getFrequencyDictForText(
             list_custom_sw: List[str]):
     fullTermsDict = multidict.MultiDict()
     tmpDict = {}
-    stopword_list = context_stopword(language, list_custom_sw)
+    stopword_list = context_stopwords(language, list_custom_sw)
     for text in sentence.split(" "):
         if text in stopword_list:
             continue

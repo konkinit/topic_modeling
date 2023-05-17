@@ -9,6 +9,7 @@ from .utils import (
     getTfidfTransformers,
     getTokenizer,
     create_wordcloud,
+    context_stopwords,
     email_check,
     global_wordcloud,
     getFrequencyDictForText
@@ -21,6 +22,7 @@ __all__ = [
     "getClusteringModel",
     "getDimReductionModel",
     "getEmbeddings",
+    "context_stopwords",
     "getMaximalMarginalRelevance",
     "email_check",
     "getEmbeddingsModel",
