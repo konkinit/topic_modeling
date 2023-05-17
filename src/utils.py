@@ -106,10 +106,12 @@ def context_stopword(language: str, list_custom_sw: List[str]):
 def getTokenizer(params: tokenizer_data, list_custom_sw: List[str]):
     return (
         CountVectorizer(
+            min_df=params.min_df,
             stop_words=params.language
             )
         if params.language == "english"
         else CountVectorizer(
+            min_df=params.min_df,
             stop_words=context_stopword(
                 params.language,
                 context_stopword(params.language, list_custom_sw)
@@ -151,6 +153,7 @@ def getFrequencyDictForText(
             continue
         val = tmpDict.get(text, 0)
         tmpDict[text.lower()] = val + 1
+    tmpDict = dict(sorted(tmpDict.items(), key=lambda item: item[1]))
     for key in tmpDict:
         fullTermsDict.add(key, tmpDict[key])
     return fullTermsDict

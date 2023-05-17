@@ -15,6 +15,7 @@ class sent_transformers_data:
 @dataclass
 class tokenizer_data:
     language: str = "french"
+    min_df: int = 3
 
 
 @dataclass
