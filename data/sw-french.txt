@@ -19,7 +19,6 @@ anterieur
 anterieure
 anterieures
 apres
-zvec
 après
 as
 assez

@@ -200,9 +200,9 @@ def global_wordcloud(
         list_custom_sw (List[str]): stopword based on the language
         and the context
     """
-    bot_mask = array(Image.open("./data/bot_image.png"))
+    # bot_mask = array(Image.open("./data/bot_image.png"))
     vocab_ = getFrequencyDictForText(docs, language, list_custom_sw)
-    wc = WordCloud(background_color="white", max_words=1000, mask=bot_mask)
+    wc = WordCloud(background_color="white", max_words=1000)#, mask=bot_mask)
     wc.generate_from_frequencies(vocab_)
     plt.figure(figsize=(10, 8))#, facecolor='k')
     plt.imshow(wc, interpolation="bilinear")

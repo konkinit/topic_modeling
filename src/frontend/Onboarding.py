@@ -28,5 +28,5 @@ st.markdown(
 st.subheader("How to use this app?")
 
 st.markdown(
-    "Load a dataset and provide the verbatim feature: "
+    "Load a dataset and provide the verbatim feature name: "
 )
