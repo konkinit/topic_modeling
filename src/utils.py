@@ -23,7 +23,11 @@ from wordcloud import WordCloud
 if os.getcwd() not in sys.path:
     sys.path.append(os.getcwd())
 from src.config import (
-    umap_data, hdbscan_data, tfidf_data, tokenizer_data, mmr_data
+    umap_data,
+    hdbscan_data,
+    tfidf_data,
+    tokenizer_data,
+    mmr_data
 )
 
 
@@ -31,6 +35,14 @@ warnings.filterwarnings("ignore")
 
 
 def email_check(text: str) -> bool:
+    """Check if a token is a email
+
+    Args:
+        text (str): string token
+
+    Returns:
+        bool: _description_
+    """
     regex = re.compile(
         r"([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+"
     )
@@ -55,7 +67,7 @@ def getEmbeddingsModel(
 def getEmbeddings(
         transformer_name: str,
         docs_name: str,
-        docs
+        docs: List[str]
 ) -> Union[List[Tensor], ndarray, Tensor]:
     model_n = transformer_name.split("/")[-1]
     path_ = f"data/embeddings-{docs_name}-{model_n}.pkl"
