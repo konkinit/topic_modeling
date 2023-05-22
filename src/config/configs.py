@@ -25,7 +25,7 @@ class tfidf_data:
 
 @dataclass
 class mmr_data:
-    diversity: float = 0.5
+    diversity: float = 0.7
     top_n_words: int = 10
 
 

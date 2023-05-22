@@ -27,26 +27,57 @@ class Preprocessing:
         self.stop_words_ = context_stopwords(language, _context_stopwords)
 
     def getLanguage(self, text: str) -> str:
+        """Get the language of a doc using spacy lang detect
+
+        Args:
+            text (str): text
+
+        Returns:
+            str: language
+        """
         doc = self.nlp(text)
         return doc._.language['language']
 
     def tokenize(self, text: str) -> List[str]:
+        """Tokenize a text
+
+        Args:
+            text (str): text
+
+        Returns:
+            List[str]: list of token
+        """
         return word_tokenize(text)
 
     def transform_email_data(self, text: str) -> str:
+        """Transform email info to generic term
+
+        Args:
+            text (str): text
+
+        Returns:
+            str: text without email address
+        """
         text_no_mail = ""
         for token in text.split(" "):
             if email_check(token):
-                # token.split("@")[-1]
                 text_no_mail = " ".join([text_no_mail, "email"])
             else:
                 text_no_mail = " ".join([text_no_mail, token])
         return text_no_mail
 
     def remove_punct_digit_nonsensstring(self, text: str) -> str:
-        text_no_punct = "".join(
-            [l_.lower() for l_ in text if l_ not in string.punctuation]
-        )
+        """Remove punctuation and non sensical string
+
+        Args:
+            text (str): text
+
+        Returns:
+            str: clean text
+        """
+        text_no_punct = text
+        for punct in string.punctuation:
+            text_no_punct = text_no_punct.replace(punct, " ")
         text_no_punct_digit = "".join(
             [l_ for l_ in text_no_punct if not l_.isdigit()]
             )

@@ -123,6 +123,9 @@ navais
 navoir
 ner
 nest
+notifier
+constater
+signifier
 nont
 not
 not

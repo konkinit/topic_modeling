@@ -117,12 +117,12 @@ def getClusteringModel(params: hdbscan_data) -> HDBSCAN:
 
 
 def context_stopwords(language: str, list_custom_sw: List[str]) -> List:
-    """Union offical language stopword and context stop_word and 
+    """Union offical language stopword and context stop_word and
     return a list of stop_word
 
     Args:
         language (str): documents language
-        list_custom_sw (List[str]): custom stopwords based 
+        list_custom_sw (List[str]): custom stopwords based
         on a the context
 
     Returns:
@@ -200,17 +200,15 @@ def global_wordcloud(
         list_custom_sw (List[str]): stopword based on the language
         and the context
     """
-    # bot_mask = array(Image.open("./data/bot_image.png"))
     vocab_ = getFrequencyDictForText(docs, language, list_custom_sw)
-    wc = WordCloud(background_color="white", max_words=1000)#, mask=bot_mask)
+    wc = WordCloud(background_color="white", max_words=1000)
     wc.generate_from_frequencies(vocab_)
-    plt.figure(figsize=(10, 8))#, facecolor='k')
+    plt.figure(figsize=(10, 8))
     plt.imshow(wc, interpolation="bilinear")
     plt.savefig(
         "./data/wordcloud-corpus.png",
-        facecolor='k',
-        bbox_inches='tight',
-        dpi=500
+        bbox_inches="tight",
+        dpi=1000
     )
     plt.axis("off")
     plt.show()
