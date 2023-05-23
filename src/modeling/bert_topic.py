@@ -2,7 +2,7 @@ import os
 import sys
 from bertopic import BERTopic
 from pandas import concat, DataFrame
-from typing import List
+from typing import List, Union
 
 if os.getcwd() not in sys.path:
     sys.path.append(os.getcwd())
@@ -45,7 +45,18 @@ class BERTopic_:
         fig = self.model.visualize_topics()
         fig.show()
 
-    def merge_clusters(self, docs: List[str], topics2merge: Union[List, List[list]]):
+    def merge_clusters(
+            self,
+            docs: List[str],
+            topics2merge: Union[List, List[list]]
+    ) -> None:
+        """Merge topics
+
+        Args:
+            docs (List[str]):  The documents you used when calling
+            either `fit` or `fit_transform`
+            topics2merge (Union[List, List[list]]): Either a list of topics or a list of list of topics
+        """
         self.model.merge_topics(docs, topics_to_merge)
 
     def barchart_(self):

@@ -3,7 +3,7 @@ import sys
 import re
 import matplotlib.pyplot as plt
 import pickle as pkl
-import multidict as multidict
+from multidict import MultiDict
 import warnings
 from bertopic.vectorizers import ClassTfidfTransformer
 from bertopic.representation import MaximalMarginalRelevance
@@ -116,7 +116,10 @@ def getClusteringModel(params: hdbscan_data) -> HDBSCAN:
     )
 
 
-def context_stopwords(language: str, list_custom_sw: List[str]) -> List:
+def context_stopwords(
+        language: str,
+        list_custom_sw: List[str]
+) -> List:
     """Union offical language stopword and context stop_word and
     return a list of stop_word
 
@@ -134,7 +137,10 @@ def context_stopwords(language: str, list_custom_sw: List[str]) -> List:
     return list(set(list_custom_sw+sw_))
 
 
-def getTokenizer(params: tokenizer_data, list_custom_sw: List[str]):
+def getTokenizer(
+        params: tokenizer_data,
+        list_custom_sw: List[str]
+) -> CountVectorizer:
     return (
         CountVectorizer(
             min_df=params.min_df,
@@ -148,19 +154,23 @@ def getTokenizer(params: tokenizer_data, list_custom_sw: List[str]):
     )
 
 
-def getTfidfTransformers(params: tfidf_data):
+def getTfidfTransformers(
+        params: tfidf_data
+) -> ClassTfidfTransformer:
     return ClassTfidfTransformer(
         reduce_frequent_words=params.reduce_freq_words
         )
 
 
-def getMaximalMarginalRelevance(params: mmr_data):
+def getMaximalMarginalRelevance(
+        params: mmr_data
+) -> MaximalMarginalRelevance:
     return MaximalMarginalRelevance(
         diversity=params.diversity, top_n_words=params.top_n_words
     )
 
 
-def create_wordcloud(model, topic: int):
+def create_wordcloud(model, topic: int) -> None:
     text = {word: value for word, value in model.get_topic(topic)}
     wc = WordCloud(background_color="white", max_words=1000)
     wc.generate_from_frequencies(text)
@@ -172,8 +182,9 @@ def create_wordcloud(model, topic: int):
 def getFrequencyDictForText(
             sentence: str,
             language: str,
-            list_custom_sw: List[str]):
-    fullTermsDict = multidict.MultiDict()
+            list_custom_sw: List[str]
+) -> MultiDict:
+    fullTermsDict = MultiDict()
     tmpDict = {}
     stopword_list = context_stopwords(language, list_custom_sw)
     for text in sentence.split(" "):
