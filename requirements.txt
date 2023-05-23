@@ -15,4 +15,5 @@ multidict
 spacy
 spacy_langdetect
 black
+xlsxwriter
 stop-words

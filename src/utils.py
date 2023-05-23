@@ -8,9 +8,10 @@ import warnings
 from bertopic.vectorizers import ClassTfidfTransformer
 from bertopic.representation import MaximalMarginalRelevance
 from hdbscan import HDBSCAN
-from numpy import ndarray, array
+from numpy import ndarray, array, arange
 from PIL import Image
 from umap import UMAP
+from random import choice
 from torch import Tensor
 from sklearn.feature_extraction.text import CountVectorizer
 from sentence_transformers import SentenceTransformer
@@ -170,13 +171,25 @@ def getMaximalMarginalRelevance(
     )
 
 
-def create_wordcloud(model, topic: int) -> None:
+def plot_wordcloud(model, topic: int, wc_name: str) -> None:
     text = {word: value for word, value in model.get_topic(topic)}
     wc = WordCloud(background_color="white", max_words=1000)
     wc.generate_from_frequencies(text)
     plt.imshow(wc, interpolation="bilinear")
     plt.axis("off")
+    plt.savefig(
+        f"./data/topics_wc/{wc_name}.png",
+        bbox_inches="tight",
+        dpi=300
+    )
     plt.show()
+
+
+def get_wordcloud_object(model, topic: int) -> None:
+    text = {word: value for word, value in model.get_topic(topic)}
+    wc = WordCloud(background_color="white", max_words=1000)
+    wc.generate_from_frequencies(text)
+    return wc
 
 
 def getFrequencyDictForText(
@@ -218,8 +231,32 @@ def global_wordcloud(
     plt.imshow(wc, interpolation="bilinear")
     plt.savefig(
         "./data/wordcloud-corpus.png",
+        facecolor='k',
         bbox_inches="tight",
-        dpi=1000
+        dpi=300
     )
     plt.axis("off")
     plt.show()
+
+
+def visualize_topic_barchart(
+    ax,
+    topic_model,
+    topic: int,
+    n_words: int = 10
+) -> None:
+    color_ = choice([
+        "#D55E00",
+        "#0072B2",
+        "#CC79A7",
+        "#E69F00",
+        "#56B4E9",
+        "#009E73",
+        "#F0E442"
+    ])
+    words = [word + "  " for word, _ in topic_model.get_topic(topic)][:n_words][::-1]
+    scores = [score for _, score in topic_model.get_topic(topic)][:n_words][::-1]
+    words_pos = arange(len(words))
+    ax.barh(words_pos, scores, align='center', color=color_)
+    ax.set_yticks(words_pos, labels=words)
+    ax.set_xlabel("score")

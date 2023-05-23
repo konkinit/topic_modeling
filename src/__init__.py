@@ -8,13 +8,16 @@ from .utils import (
     getEmbeddingsModel,
     getTfidfTransformers,
     getTokenizer,
-    create_wordcloud,
+    get_wordcloud_object,
+    plot_wordcloud,
     context_stopwords,
     email_check,
     global_wordcloud,
-    getFrequencyDictForText
+    getFrequencyDictForText,
+    visualize_topic_barchart
 )
 from .modeling import bert_topic
+
 
 __all__ = [
     "configs",
@@ -29,7 +32,9 @@ __all__ = [
     "getTfidfTransformers",
     "getTokenizer",
     "global_wordcloud",
-    "create_wordcloud",
+    "plot_wordcloud",
+    "get_wordcloud_object",
     "bert_topic",
+    "visualize_topic_barchart",
     "getFrequencyDictForText"
 ]

@@ -25,6 +25,7 @@ bo
 bonjour
 bonsoir
 bsr
+bénéficier
 ca
 cava
 cc
@@ -37,6 +38,8 @@ chose
 chqu
 club
 comprendre
+confirmer
+constater
 cordiale
 cordialement
 cree
@@ -44,6 +47,7 @@ crer
 croire
 ct
 dacc
+demander
 deper
 depuits
 detre
@@ -82,10 +86,12 @@ fonctionner
 gnralement
 go
 he
+hier
 ja
 jai
 jaimerer
 jamais
+jarrive
 jarrive
 jattends
 jaurai
@@ -106,6 +112,7 @@ lon
 m
 mai
 maider
+matin
 mavait
 men
 mest
@@ -113,6 +120,7 @@ mettre
 mexpliquer
 mme
 mo
+mois
 monsieur
 mr
 mre
@@ -123,12 +131,10 @@ navais
 navoir
 ner
 nest
-notifier
-constater
-signifier
 nont
 not
 not
+notifier
 ntes
 ny
 obtenir
@@ -176,6 +182,7 @@ regarder
 rel
 russir
 ré
+réponse
 sagit
 salam
 salut
@@ -183,7 +190,9 @@ savoir
 sen
 seraitil
 sest
+signifier
 sm
+soir
 sontils
 sou
 souhaiter
@@ -213,7 +222,10 @@ venir
 voir
 vouloir
 vouss
+xdd
+xdd
 xddxdea
+xdeer
 xdexdd
 ya
 yer
