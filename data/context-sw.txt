@@ -3,6 +3,7 @@ actuellement
 aij
 aije
 ais
+ajouter
 aller
 alor
 alto
@@ -40,6 +41,7 @@ club
 comprendre
 confirmer
 constater
+contenir
 cordiale
 cordialement
 cree
@@ -112,10 +114,13 @@ lon
 m
 mai
 maider
+taper
+solution 
 matin
 mavait
 men
 mest
+jene
 mettre
 mexpliquer
 mme
