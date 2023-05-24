@@ -1,4 +1,5 @@
 # Custom extension
+data/context-stopwords.txt
 model-*
 *.pkl
 *.vscode

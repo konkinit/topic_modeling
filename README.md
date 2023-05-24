@@ -30,7 +30,7 @@ docker pull kidrissa/bertopicapp:latest
 docker run -p 8501:8501 -d kidrissa/bertopicapp:latest
 ```
 
-## References
+## Citation
 
 ```bib
 @article{grootendorst2022bertopic,
@@ -40,5 +40,3 @@ docker run -p 8501:8501 -d kidrissa/bertopicapp:latest
   year={2022}
 }
 ```
-
-[BERTopic Official Documentation](https://maartengr.github.io/BERTopic/index.html)

@@ -36,6 +36,13 @@ class BERTopic_:
             docs_name: str,
             docs: List[str]
     ) -> None:
+        """Fit BERTopic model or load it
+
+        Args:
+            transformer_name (str): transformers used for embedding
+            docs_name (str): documents name for identifaction
+            docs (List[str]): documents
+        """
         model_n = transformer_name.split("/")[-1]
         path_ = f"data/model-{docs_name}-{model_n}"
         if os.path.isfile(os.path.join(path_)):
@@ -92,7 +99,7 @@ class BERTopic_:
             self,
             docs: List[str],
             raw_docs: List[str]
-    ) -> DataFrame:
+    ) -> None:
         """Get representative documents per topic
 
         Args:
@@ -129,21 +136,19 @@ class BERTopic_:
             raw_docs: List[str],
             topic_id: int
     ) -> None:
-        fig = plt.figure(figsize=(12, 5)) 
-        gs = gridspec.GridSpec(1, 2, width_ratios=[2, 1]) 
-        ax1 = plt.subplot(gs[0])
-        ax2 = plt.subplot(gs[1])
+        fig = plt.figure(figsize=(12, 5))
+        gs = gridspec.GridSpec(1, 2, width_ratios=[2, 1])
+        ax1 = plt.subplot(gs[0, 0])
+        ax2 = plt.subplot(gs[0, 1])
+
         _wordcloud = get_wordcloud_object(self.model, topic_id)
-        list_repre_docs = self.representative_docs(docs, raw_docs).query(
-            f"topic_id == {topic_id} and representative_doc == True"
-        )["raw_doc"].tolist()
         ax1.imshow(_wordcloud, interpolation="bilinear")
         ax1.set_axis_off()
+
         visualize_topic_barchart(ax2, self.model, topic_id, 10)
         plt.tight_layout()
         plt.savefig(
             f"./data/topics_wc/topic_{topic_id}.png",
-            bbox_inches="tight",
-            dpi=300
+            bbox_inches="tight", dpi=300
         )
         plt.show()
