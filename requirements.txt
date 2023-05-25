@@ -1,4 +1,3 @@
-python-dev-tools
 flake8
 pytest
 pandas
