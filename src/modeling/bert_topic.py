@@ -5,7 +5,6 @@ from matplotlib import gridspec
 from bertopic import BERTopic
 from pandas import concat, DataFrame, ExcelWriter
 from typing import List, Union
-
 if os.getcwd() not in sys.path:
     sys.path.append(os.getcwd())
 from src.config import bertopic_data
@@ -126,7 +125,9 @@ class BERTopic_:
             .reset_index(drop=True)
         )
         q_repr = ExcelWriter("./data/topic_q_representative.xlsx", engine='xlsxwriter')
-        df_doc_representative.to_excel(q_repr, sheet_name="representative docs", index=False)
+        df_doc_representative.to_excel(
+            q_repr, sheet_name="representative docs", index=False
+        )
         q_repr._save()
         return df_doc_representative
 
