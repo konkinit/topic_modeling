@@ -23,6 +23,12 @@ from src.utils import (
 
 
 st.title("Modeling with BERTopic")
+st.markdown(
+    """
+    This part is dedicated for fitting the stack of models
+    topic generation. After initialising the model ,
+    """
+)
 
 
 df_docs = st.session_state["df_docs"]
@@ -70,3 +76,20 @@ bert_topic_inst.fit_or_load(transformer, id_docs, docs)
 st.plotly_chart(
     bert_topic_inst._intertopic()
 )
+
+n_topics = max(bert_topic_inst.model.topics_)
+
+if st.button('Reduce the number of topics'):
+    n_topics_ = st.number_input(
+        'Insert a number', min_value=2, max_value=n_topics
+    )
+    bert_topic_inst._reduce_topics(docs, n_topics_)
+    st.session_state["n_topics"] = n_topics_
+    st.plotly_chart(
+        bert_topic_inst._intertopic()
+    )
+else:
+    st.session_state["n_topics"] = n_topics
+    st.plotly_chart(
+        bert_topic_inst._intertopic()
+    )

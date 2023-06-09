@@ -12,10 +12,6 @@
   <img alt="Code Style" src="https://img.shields.io/badge/code%20style-black-black?style=for-the-badge">
 </p>
 
-## To Do
-
-- Build Streamlit App
-
 ## Description
 
 The project consists of a packaging of BERTopic modeling with Streamlit framework. Instructions and more
