@@ -18,7 +18,8 @@
 
 ## Description
 
-The project ...
+The project consists of a packaging of BERTopic modeling with Streamlit framework. Instructions and more
+details are provided in the app ...
 
 ## Getting Started
 

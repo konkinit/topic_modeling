@@ -4,7 +4,8 @@ import matplotlib.pyplot as plt
 from matplotlib import gridspec
 from bertopic import BERTopic
 from pandas import concat, DataFrame, ExcelWriter
-from typing import List, Union
+from plotly.graph_objects import Figure
+from typing import List
 if os.getcwd() not in sys.path:
     sys.path.append(os.getcwd())
 from src.config import bertopic_data
@@ -15,7 +16,7 @@ from src.utils import (
 )
 
 
-class BERTopic_:
+class _BERTopic:
     def __init__(self, bertopic_params: bertopic_data):
         self.model = BERTopic(
             nr_topics=bertopic_params.nr_topics,
@@ -53,19 +54,17 @@ class BERTopic_:
             )
             self.model.save(f"./{path_}", save_embedding_model=True)
 
-    def heatmap_(self) -> None:
+    def _heatmap(self) -> Figure:
         """Plot clusters correlation matrix
         """
-        fig = self.model.visualize_heatmap()
-        fig.show()
+        return self.model.visualize_heatmap()
 
-    def intertopic_(self) -> None:
+    def _intertopic(self) -> Figure:
         """Plot inter topic distance map
         """
-        fig = self.model.visualize_topics()
-        fig.show()
+        return self.model.visualize_topics()
 
-    def reduce_topics_(
+    def _reduce_topics(
             self,
             docs: List[str],
             number_topic: int
@@ -82,17 +81,16 @@ class BERTopic_:
             nr_topics=number_topic
         )
 
-    def barchart_(self):
+    def _barchart(self) -> Figure:
         """Display all topics composition barchart
         """
         n_topics_ = max(self.model.topics_)
-        fig = self.model.visualize_barchart(
+        return self.model.visualize_barchart(
             topics=list(range(n_topics_ + 1)),
             n_words=15,
             width=300,
             height=300
         )
-        fig.show()
 
     def representative_docs(
             self,
@@ -124,7 +122,10 @@ class BERTopic_:
             .sort_values("topic_name")
             .reset_index(drop=True)
         )
-        q_repr = ExcelWriter("./data/topic_q_representative.xlsx", engine='xlsxwriter')
+        q_repr = ExcelWriter(
+            "./data/topic_q_representative.xlsx",
+            engine='xlsxwriter'
+        )
         df_doc_representative.to_excel(
             q_repr, sheet_name="representative docs", index=False
         )
@@ -137,7 +138,7 @@ class BERTopic_:
             raw_docs: List[str],
             topic_id: int
     ) -> None:
-        fig = plt.figure(figsize=(12, 5))
+        _ = plt.figure(figsize=(12, 5))
         gs = gridspec.GridSpec(1, 2, width_ratios=[2, 1])
         ax1 = plt.subplot(gs[0, 0])
         ax2 = plt.subplot(gs[0, 1])

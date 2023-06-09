@@ -9,4 +9,6 @@ RUN apt-get update && \
 
 RUN bash package_installing.sh
 
+EXPOSE 8501
+
 ENTRYPOINT ["streamlit", "run", "./src/frontend/Onboarding.py"]

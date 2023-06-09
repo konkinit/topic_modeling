@@ -1,4 +1,4 @@
-from .bert_topic import BERTopic_
+from .bert_topic import _BERTopic
 
 
-__all__ = ["BERTopic_"]
+__all__ = ["_BERTopic"]

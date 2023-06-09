@@ -8,8 +8,7 @@ import warnings
 from bertopic.vectorizers import ClassTfidfTransformer
 from bertopic.representation import MaximalMarginalRelevance
 from hdbscan import HDBSCAN
-from numpy import ndarray, array, arange
-from PIL import Image
+from numpy import ndarray, arange
 from umap import UMAP
 from random import choice
 from torch import Tensor
@@ -254,8 +253,12 @@ def visualize_topic_barchart(
         "#009E73",
         "#F0E442"
     ])
-    words = [word + "  " for word, _ in topic_model.get_topic(topic)][:n_words][::-1]
-    scores = [score for _, score in topic_model.get_topic(topic)][:n_words][::-1]
+    words = [
+        word + "  " for word, _ in topic_model.get_topic(topic)
+    ][:n_words][::-1]
+    scores = [
+        score for _, score in topic_model.get_topic(topic)
+    ][:n_words][::-1]
     words_pos = arange(len(words))
     ax.barh(words_pos, scores, align='center', color=color_)
     ax.set_yticks(words_pos, labels=words)
