@@ -79,9 +79,10 @@ st.plotly_chart(
 
 n_topics = max(bert_topic_inst.model.topics_)
 
-if st.button('Reduce the number of topics'):
+agree_to_reduce_topics = st.checkbox('Reduce the number of topics', value=None)
+if agree_to_reduce_topics:
     n_topics_ = st.number_input(
-        'Insert a number', min_value=2, max_value=n_topics
+        'Insert a number', min_value=2
     )
     bert_topic_inst._reduce_topics(docs, n_topics_)
     st.session_state["n_topics"] = n_topics_

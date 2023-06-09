@@ -16,3 +16,4 @@ spacy_langdetect
 black
 xlsxwriter
 stop-words
+protobuf==3.20.0
