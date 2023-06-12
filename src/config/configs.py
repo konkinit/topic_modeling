@@ -57,3 +57,12 @@ class bertopic_data:
     top_n_words: int = 10
     n_gram_range: tuple = (1, 2)
     min_topic_size: int = 5
+
+
+@dataclass
+class session_args:
+    target_var: str = "target_var"
+    date_var: str = "date"
+    id_docs: str = "id_docs"
+    df_docs: str = "df_docs"
+    n_topics: str = "n_topics"

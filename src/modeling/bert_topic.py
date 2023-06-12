@@ -56,11 +56,17 @@ class _BERTopic:
 
     def _heatmap(self) -> Figure:
         """Plot clusters correlation matrix
+
+        Returns:
+            Figure: heatmap figure object
         """
         return self.model.visualize_heatmap()
 
     def _intertopic(self) -> Figure:
         """Plot inter topic distance map
+
+        Returns:
+            Figure: intertopic map figure object
         """
         return self.model.visualize_topics()
 
@@ -132,12 +138,19 @@ class _BERTopic:
         q_repr._save()
         return df_doc_representative
 
-    def topic_infeence(
+    def topic_inference(
             self,
             docs: List[str],
             raw_docs: List[str],
             topic_id: int
     ) -> None:
+        """Produce inference of a given topic
+
+        Args:
+            docs (List[str]): _description_
+            raw_docs (List[str]): _description_
+            topic_id (int): _description_
+        """
         _ = plt.figure(figsize=(12, 5))
         gs = gridspec.GridSpec(1, 2, width_ratios=[2, 1])
         ax1 = plt.subplot(gs[0, 0])

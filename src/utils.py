@@ -170,7 +170,18 @@ def getMaximalMarginalRelevance(
     )
 
 
-def plot_wordcloud(model, topic: int, wc_name: str) -> None:
+def plot_wordcloud(
+        model,
+        topic: int,
+        wc_name: str
+) -> None:
+    """Plot wordcloud
+
+    Args:
+        model (_type_): bertopic model
+        topic (int): topic id number
+        wc_name (str): wordcloud storage name
+    """
     text = {word: value for word, value in model.get_topic(topic)}
     wc = WordCloud(background_color="white", max_words=1000)
     wc.generate_from_frequencies(text)
@@ -192,9 +203,9 @@ def get_wordcloud_object(model, topic: int) -> None:
 
 
 def getFrequencyDictForText(
-            sentence: str,
-            language: str,
-            list_custom_sw: List[str]
+        sentence: str,
+        language: str,
+        list_custom_sw: List[str]
 ) -> MultiDict:
     fullTermsDict = MultiDict()
     tmpDict = {}
@@ -239,10 +250,10 @@ def global_wordcloud(
 
 
 def visualize_topic_barchart(
-    ax,
-    topic_model,
-    topic: int,
-    n_words: int = 10
+        ax,
+        topic_model,
+        topic: int,
+        n_words: int = 10
 ) -> None:
     color_ = choice([
         "#D55E00",

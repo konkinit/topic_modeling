@@ -43,14 +43,16 @@ transformer = st.session_state["transformer"]
 df_docs[f"clean_{target_var}"] = df_docs[target_var].apply(
     preprocessor.pipeline
 )
-df_docs[f"empty_clean_{target_var}"] = df_docs[f"clean_{target_var}"].apply(
-    lambda x: len(x) == 0
-)
+df_docs[
+    f"empty_clean_{target_var}"
+] = df_docs[f"clean_{target_var}"].apply(lambda x: len(x) == 0)
 df_docs = df_docs.query(
     f"language == '{language[:2]}' and empty_clean_{target_var} == False"
 ).reset_index(drop=True)
-raw_docs = df_docs[target_var].tolist()
-docs = df_docs[f"clean_{target_var}"].tolist()
+raw_docs, docs = (
+    df_docs[target_var].tolist(),
+    df_docs[f"clean_{target_var}"].tolist()
+)
 
 
 umap_model = getDimReductionModel(umap_data())
@@ -71,7 +73,9 @@ bertopic_config = bertopic_data(
 bert_topic_inst = _BERTopic(bertopic_config)
 
 
-bert_topic_inst.fit_or_load(transformer, id_docs, docs)
+bert_topic_inst.fit_or_load(
+    transformer, id_docs, docs
+)
 
 st.plotly_chart(
     bert_topic_inst._intertopic()
@@ -79,18 +83,22 @@ st.plotly_chart(
 
 n_topics = max(bert_topic_inst.model.topics_)
 
-agree_to_reduce_topics = st.checkbox('Reduce the number of topics', value=None)
+agree_to_reduce_topics = st.checkbox(
+    'Reduce the number of topics', value=None
+)
 if agree_to_reduce_topics:
     n_topics_ = st.number_input(
-        'Insert a number', min_value=2
+        'Insert the desied number of topics',
+        min_value=2
     )
     bert_topic_inst._reduce_topics(docs, n_topics_)
     st.session_state["n_topics"] = n_topics_
-    st.plotly_chart(
-        bert_topic_inst._intertopic()
-    )
 else:
     st.session_state["n_topics"] = n_topics
-    st.plotly_chart(
-        bert_topic_inst._intertopic()
-    )
+st.plotly_chart(
+    bert_topic_inst._intertopic()
+)
+st.plotly_chart(
+    bert_topic_inst._barchart()
+)
+st.session_state["bert_topic_inst"] = bert_topic_inst

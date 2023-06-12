@@ -35,7 +35,9 @@ df_lang = df_docs[
 
 
 col1, col2, col3 = st.columns(3)
-col1.metric(label="Verbatims", value=df_docs[target_var].shape[0])
+col1.metric(
+    label="Verbatims", value=df_docs[target_var].shape[0]
+)
 col2.metric(
     label="First Date", value=df_docs[date_var].min().strftime("%Y-%m-%d")
 )
