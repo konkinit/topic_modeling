@@ -35,10 +35,10 @@ col1.metric(
     label="Topic Id", value=topic_id
 )
 col2.metric(
-    label="Topic Name", value=df_topic_stat.Name.values[0]
+    label="Docs Frequency", value=df_topic_stat.Count.values[0]
 )
 col3.metric(
-    label="Docs Frequency", value=df_topic_stat.Count.values[0]
+    label="Topic Name", value=df_topic_stat.Name.values[0]
 )
 df_doc_representative = bert_topic_inst.representative_docs(docs, raw_docs)
 st.dataframe(
@@ -50,7 +50,7 @@ st.dataframe(
 
 st.download_button(
     label="Download representative docs as CSV",
-    data=df_doc_representative,
+    data=df_doc_representative.to_csv(encoding="utf-8"),
     file_name='df_doc_representative.csv',
     mime='text/csv',
 )

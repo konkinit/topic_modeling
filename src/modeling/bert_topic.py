@@ -127,7 +127,9 @@ class _BERTopic:
             df_doc_representative[df_doc_representative["representative_doc"]]
             .sort_values("topic_name")
             .reset_index(drop=True)
-        ).drop(axis=1, columns="representative_doc")
+        ).drop(
+            axis=1, columns=["representative_doc", "topic_name", "clean_doc"]
+        )
         q_repr = ExcelWriter(
             "./data/topic_q_representative.xlsx",
             engine='xlsxwriter'
