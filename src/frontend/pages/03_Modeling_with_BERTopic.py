@@ -84,21 +84,31 @@ st.plotly_chart(
 n_topics = max(bert_topic_inst.model.topics_)
 
 agree_to_reduce_topics = st.checkbox(
-    'Reduce the number of topics', value=None
+    'Reduce the number of topics', value=False
+)
+n_topics_ = st.number_input(
+    'Insert the desied number of topics',
+    max_value=n_topics
 )
 if agree_to_reduce_topics:
-    n_topics_ = st.number_input(
-        'Insert the desied number of topics',
-        min_value=2
-    )
-    bert_topic_inst._reduce_topics(docs, n_topics_)
-    st.session_state["n_topics"] = n_topics_
+    if n_topics_:
+        bert_topic_inst._reduce_topics(docs, n_topics_)
+        st.session_state["n_topics"] = n_topics_
+        st.plotly_chart(
+            bert_topic_inst._intertopic()
+        )
+        st.plotly_chart(
+            bert_topic_inst._barchart(),
+            use_container_width=True
+        )
+        st.session_state["bert_topic_inst"] = bert_topic_inst
 else:
     st.session_state["n_topics"] = n_topics
-st.plotly_chart(
-    bert_topic_inst._intertopic()
-)
-st.plotly_chart(
-    bert_topic_inst._barchart()
-)
-st.session_state["bert_topic_inst"] = bert_topic_inst
+    st.plotly_chart(
+        bert_topic_inst._intertopic()
+    )
+    st.plotly_chart(
+        bert_topic_inst._barchart(),
+        use_container_width=True
+    )
+    st.session_state["bert_topic_inst"] = bert_topic_inst
