@@ -64,7 +64,7 @@ st.plotly_chart(
     )
 )
 
-st.dataframe(df_docs.head(), use_container_width=True)
+st.dataframe(df_docs.head(), use_container_width=False)
 
 
 st.session_state["df_docs"] = df_docs

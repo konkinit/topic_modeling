@@ -49,11 +49,11 @@ df_docs[
 df_docs = df_docs.query(
     f"language == '{language[:2]}' and empty_clean_{target_var} == False"
 ).reset_index(drop=True)
+st.session_state["df_docs"] = df_docs
 raw_docs, docs = (
     df_docs[target_var].tolist(),
     df_docs[f"clean_{target_var}"].tolist()
 )
-
 
 umap_model = getDimReductionModel(umap_data())
 hdbscan_model = getClusteringModel(hdbscan_data())
@@ -83,30 +83,25 @@ st.plotly_chart(
 
 n_topics = max(bert_topic_inst.model.topics_)
 
-agree_to_reduce_topics = st.checkbox(
-    'Reduce the number of topics', value=False
-)
 n_topics_ = st.number_input(
     'Insert the desied number of topics',
-    max_value=n_topics
+    value=0,
+    help=f"Provide a number between 1 and {n_topics}. If satisfyed with the \
+    the current number of topic enter -1"
 )
-if agree_to_reduce_topics:
-    if n_topics_:
-        bert_topic_inst._reduce_topics(docs, n_topics_)
-        st.session_state["n_topics"] = n_topics_
-        st.plotly_chart(
-            bert_topic_inst._intertopic()
-        )
-        st.plotly_chart(
-            bert_topic_inst._barchart(),
-            use_container_width=True
-        )
-        st.session_state["bert_topic_inst"] = bert_topic_inst
-else:
-    st.session_state["n_topics"] = n_topics
+if n_topics_ > 0:
+    bert_topic_inst._reduce_topics(docs, n_topics_)
+    st.session_state["n_topics"] = n_topics_
     st.plotly_chart(
         bert_topic_inst._intertopic()
     )
+    st.plotly_chart(
+        bert_topic_inst._barchart(),
+        use_container_width=True
+    )
+    st.session_state["bert_topic_inst"] = bert_topic_inst
+if n_topics_ == -1:
+    st.session_state["n_topics"] = n_topics
     st.plotly_chart(
         bert_topic_inst._barchart(),
         use_container_width=True

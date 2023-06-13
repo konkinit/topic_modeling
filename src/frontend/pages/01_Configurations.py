@@ -47,7 +47,7 @@ st.markdown(
     to understand a verbatim.
     """
 )
-uploaded_file = st.file_uploader("Choose the dataset", type=['txt'])
+uploaded_file = st.file_uploader("Load the stop-words file", type=['txt'])
 if uploaded_file is not None:
     list_context_sw = [line.strip() for line in uploaded_file.readlines()]
 

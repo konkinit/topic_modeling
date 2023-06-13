@@ -94,15 +94,15 @@ class _BERTopic:
         return self.model.visualize_barchart(
             topics=list(range(n_topics_ + 1)),
             n_words=15,
-            width=300,
-            height=300
+            width=400,
+            height=400
         )
 
     def representative_docs(
             self,
             docs: List[str],
             raw_docs: List[str]
-    ) -> None:
+    ) -> DataFrame:
         """Get representative documents per topic
 
         Args:
@@ -127,7 +127,7 @@ class _BERTopic:
             df_doc_representative[df_doc_representative["representative_doc"]]
             .sort_values("topic_name")
             .reset_index(drop=True)
-        )
+        ).drop(axis=1, columns="representative_doc")
         q_repr = ExcelWriter(
             "./data/topic_q_representative.xlsx",
             engine='xlsxwriter'
@@ -138,20 +138,27 @@ class _BERTopic:
         q_repr._save()
         return df_doc_representative
 
-    def topic_inference(
+    def topic_stat(
             self,
-            docs: List[str],
-            raw_docs: List[str],
             topic_id: int
-    ) -> None:
-        """Produce inference of a given topic
+    ) -> DataFrame:
+        """Produce stats of a given topic
 
         Args:
-            docs (List[str]): _description_
-            raw_docs (List[str]): _description_
-            topic_id (int): _description_
+            topic_id (int): topic id
         """
-        _ = plt.figure(figsize=(12, 5))
+        return self.model.get_topic_info(topic_id)
+
+    def topic_plot(
+            self,
+            topic_id: int
+    ) -> None:
+        """Produce plot of a given topic
+
+        Args:
+            topic_id (int): topic id
+        """
+        fig = plt.figure(figsize=(13.5, 6))
         gs = gridspec.GridSpec(1, 2, width_ratios=[2, 1])
         ax1 = plt.subplot(gs[0, 0])
         ax2 = plt.subplot(gs[0, 1])
@@ -161,9 +168,12 @@ class _BERTopic:
         ax1.set_axis_off()
 
         visualize_topic_barchart(ax2, self.model, topic_id, 10)
-        plt.tight_layout()
-        plt.savefig(
+        fig.tight_layout()
+        fig.savefig(
             f"./data/topics_wc/topic_{topic_id}.png",
-            bbox_inches="tight", dpi=300
+            bbox_inches="tight", dpi=500
         )
-        plt.show()
+        return fig
+
+
+# streamlit run ./src/frontend/Onboarding.py
