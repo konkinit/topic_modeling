@@ -14,7 +14,9 @@ from .utils import (
     email_check,
     global_wordcloud,
     getFrequencyDictForText,
-    visualize_topic_barchart
+    visualize_topic_barchart,
+    verbatim_lang,
+    verbatim_length
 )
 from .modeling import bert_topic
 
@@ -36,5 +38,7 @@ __all__ = [
     "get_wordcloud_object",
     "bert_topic",
     "visualize_topic_barchart",
-    "getFrequencyDictForText"
+    "getFrequencyDictForText",
+    "verbatim_lang",
+    "verbatim_length"
 ]

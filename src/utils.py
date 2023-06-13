@@ -274,3 +274,13 @@ def visualize_topic_barchart(
     ax.barh(words_pos, scores, align='center', color=color_)
     ax.set_yticks(words_pos, labels=words)
     ax.set_xlabel("score")
+
+
+def verbatim_length(x: str):
+    return len(x.split(" "))
+
+
+def verbatim_lang(x: str):
+    if x in ["fr", "en"]:
+        return x
+    return "other_lang"

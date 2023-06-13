@@ -1,6 +1,16 @@
+import os
+import sys
 import plotly.express as px
 import streamlit as st
 from datetime import datetime
+from pandarallel import pandarallel
+
+if os.getcwd() not in sys.path:
+    sys.path.append(os.getcwd())
+from src.utils import verbatim_lang, verbatim_length
+
+
+pandarallel.initialize(progress_bar=True, nb_workers=20)
 
 
 st.title("Metadata Statistics")
@@ -23,12 +33,15 @@ list_context_sw = st.session_state["context_sw"]
 df_docs[date_var] = df_docs[date_var].apply(
     lambda x: datetime.strptime(x, "%Y-%m-%d")
 )
+
 df_docs["language"] = (
     df_docs[target_var]
-    .apply(preprocessor.getLanguage)
-    .apply(lambda x: x if x in ["fr", "en"] else "other_lang")
+    .parallel_apply(preprocessor.getLanguage)
+    .parallel_apply(verbatim_lang)
 )
-df_docs["length"] = df_docs[target_var].apply(lambda x: len(x.split(" ")))
+df_docs["length"] = df_docs[target_var].parallel_apply(
+    verbatim_length
+)
 df_lang = df_docs[
     ["language", target_var]
 ].groupby("language").count().reset_index()

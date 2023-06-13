@@ -1,6 +1,7 @@
 import os
 import sys
 import streamlit as st
+from pandarallel import pandarallel
 
 if os.getcwd() not in sys.path:
     sys.path.append(os.getcwd())
@@ -22,6 +23,9 @@ from src.utils import (
 )
 
 
+pandarallel.initialize(progress_bar=True, nb_workers=20)
+
+
 st.title("Modeling with BERTopic")
 st.markdown(
     """
@@ -40,7 +44,7 @@ preprocessor = st.session_state["preprocessor"]
 transformer = st.session_state["transformer"]
 
 
-df_docs[f"clean_{target_var}"] = df_docs[target_var].apply(
+df_docs[f"clean_{target_var}"] = df_docs[target_var].parallel_apply(
     preprocessor.pipeline
 )
 df_docs[
@@ -86,8 +90,8 @@ n_topics = max(bert_topic_inst.model.topics_)
 n_topics_ = st.number_input(
     'Insert the desied number of topics',
     value=0,
-    help=f"Provide a number between 1 and {n_topics}. If satisfyed with the \
-    the current number of topic enter -1"
+    help=f"Provide a number between 1 and {n_topics}. If you are \
+    satisfyed with the the current number of topic enter -1."
 )
 if n_topics_ > 0:
     bert_topic_inst._reduce_topics(docs, n_topics_)

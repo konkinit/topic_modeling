@@ -3,7 +3,7 @@ import sys
 import matplotlib.pyplot as plt
 from matplotlib import gridspec
 from bertopic import BERTopic
-from pandas import concat, DataFrame, ExcelWriter
+from pandas import concat, DataFrame
 from plotly.graph_objects import Figure
 from typing import List
 if os.getcwd() not in sys.path:
@@ -94,8 +94,8 @@ class _BERTopic:
         return self.model.visualize_barchart(
             topics=list(range(n_topics_ + 1)),
             n_words=15,
-            width=400,
-            height=400
+            width=300,
+            height=300
         )
 
     def representative_docs(
@@ -130,14 +130,6 @@ class _BERTopic:
         ).drop(
             axis=1, columns=["representative_doc", "topic_name", "clean_doc"]
         )
-        q_repr = ExcelWriter(
-            "./data/topic_q_representative.xlsx",
-            engine='xlsxwriter'
-        )
-        df_doc_representative.to_excel(
-            q_repr, sheet_name="representative docs", index=False
-        )
-        q_repr._save()
         return df_doc_representative
 
     def topic_stat(

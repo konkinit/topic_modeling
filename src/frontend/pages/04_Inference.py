@@ -23,7 +23,7 @@ topic_id = st.number_input(
     'Select a number for more details on the related topic',
     value=0,
     min_value=0,
-    max_value=n_topics
+    max_value=n_topics-1
 )
 st.pyplot(
     bert_topic_inst.topic_plot(topic_id),
@@ -47,13 +47,6 @@ st.dataframe(
     ).reset_index(drop=True),
     use_container_width=True
 )
-
-st.download_button(
-    label="Download representative docs as CSV",
-    data=df_doc_representative.to_csv(encoding="utf-8"),
-    file_name='df_doc_representative.csv',
-    mime='text/csv',
-)
 with open(f"./data/topics_wc/topic_{topic_id}.png", "rb") as file:
     btn = st.download_button(
         label=f"Download topic {topic_id} wordcloud",
@@ -61,3 +54,9 @@ with open(f"./data/topics_wc/topic_{topic_id}.png", "rb") as file:
         file_name=f"wc-topic-{topic_id}.png",
         mime="image/png"
     )
+st.download_button(
+    label="Download representative docs as CSV",
+    data=df_doc_representative.to_csv(encoding="utf-8"),
+    file_name='df_doc_representative.csv',
+    mime='text/csv',
+)

@@ -49,8 +49,10 @@ st.markdown(
 )
 uploaded_file = st.file_uploader("Load the stop-words file", type=['txt'])
 if uploaded_file is not None:
-    list_context_sw = [line.strip() for line in uploaded_file.readlines()]
-
+    list_context_sw = [
+        line.strip().decode('utf-8') for line in uploaded_file.readlines()
+    ]
+    assert type(list_context_sw[0]) == str, "Encoding problem while reading sw"
     preprocessor = Preprocessing(
         spacy_model,
         language,

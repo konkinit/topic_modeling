@@ -60,7 +60,7 @@ class bertopic_data:
 
 
 @dataclass
-class session_args:
+class st_sess_data:
     target_var: str = "target_var"
     date_var: str = "date"
     id_docs: str = "id_docs"
