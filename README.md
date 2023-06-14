@@ -1,9 +1,12 @@
 <h1 align="center">
   Topic Modeling with on BERTopic
 </br>
-The project consists of a packaging of BERTopic modeling with Streamlit framework. Instructions and more
-details are provided in the app ...
 </h1>
+
+<p align="center">
+  The project consists of a packaging of BERTopic modeling with Streamlit framework. Instructions and more
+  details are provided in the app ...
+</p>
 
 <p align="center">
   <img alt="GitHub Workflow Status" src="https://img.shields.io/github/actions/workflow/status/konkinit/topic_modeling/topic_app_ci.yaml?label=Test%20%26%20Build%20Image&style=for-the-badge">
