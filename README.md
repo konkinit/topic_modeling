@@ -1,6 +1,8 @@
 <h1 align="center">
   Topic Modeling with on BERTopic
 </br>
+The project consists of a packaging of BERTopic modeling with Streamlit framework. Instructions and more
+details are provided in the app ...
 </h1>
 
 <p align="center">
@@ -16,10 +18,10 @@
   <img alt="Docker Image Size (latest by date)" src="https://img.shields.io/docker/image-size/kidrissa/bertopicapp?style=for-the-badge">
 </p>
 
-## Description
+## ToDo
 
-The project consists of a packaging of BERTopic modeling with Streamlit framework. Instructions and more
-details are provided in the app ...
+- Write Unit Tests ...
+
 
 ## Getting Started
 

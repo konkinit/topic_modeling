@@ -6,7 +6,8 @@ from .configs import (
     tokenizer_data,
     mmr_data,
     bertopic_data,
-    st_sess_data
+    st_sess_data,
+    parallelism_data
 )
 
 
@@ -18,5 +19,6 @@ __all__ = [
     "tokenizer_data",
     "mmr_data",
     "bertopic_data",
-    "st_sess_data"
+    "st_sess_data",
+    "parallelism_data"
 ]

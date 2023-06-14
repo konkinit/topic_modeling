@@ -7,10 +7,15 @@ from pandarallel import pandarallel
 
 if os.getcwd() not in sys.path:
     sys.path.append(os.getcwd())
+from src.config import parallelism_data
 from src.utils import verbatim_lang, verbatim_length
 
 
-pandarallel.initialize(progress_bar=True, nb_workers=20)
+pandarallel.initialize(
+    progress_bar=parallelism_data.progress_bar,
+    nb_workers=parallelism_data.nb_workers,
+    verbose=parallelism_data.verbose
+)
 
 
 st.title("Metadata Statistics")

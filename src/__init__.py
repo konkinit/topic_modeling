@@ -16,7 +16,8 @@ from .utils import (
     getFrequencyDictForText,
     visualize_topic_barchart,
     verbatim_lang,
-    verbatim_length
+    verbatim_length,
+    empty_verbatim_assertion
 )
 from .modeling import bert_topic
 
@@ -40,5 +41,6 @@ __all__ = [
     "visualize_topic_barchart",
     "getFrequencyDictForText",
     "verbatim_lang",
-    "verbatim_length"
+    "verbatim_length",
+    "empty_verbatim_assertion"
 ]

@@ -12,6 +12,7 @@ from src.config import (
     tokenizer_data,
     mmr_data,
     bertopic_data,
+    parallelism_data
 )
 from src.modeling import _BERTopic
 from src.utils import (
@@ -19,11 +20,16 @@ from src.utils import (
     getDimReductionModel,
     getMaximalMarginalRelevance,
     getTfidfTransformers,
-    getTokenizer
+    getTokenizer,
+    empty_verbatim_assertion
 )
 
 
-pandarallel.initialize(progress_bar=True, nb_workers=20)
+pandarallel.initialize(
+    progress_bar=parallelism_data.progress_bar,
+    nb_workers=parallelism_data.nb_workers,
+    verbose=parallelism_data.verbose
+)
 
 
 st.title("Modeling with BERTopic")
@@ -49,7 +55,7 @@ df_docs[f"clean_{target_var}"] = df_docs[target_var].parallel_apply(
 )
 df_docs[
     f"empty_clean_{target_var}"
-] = df_docs[f"clean_{target_var}"].apply(lambda x: len(x) == 0)
+] = df_docs[f"clean_{target_var}"].parallel_apply(empty_verbatim_assertion)
 df_docs = df_docs.query(
     f"language == '{language[:2]}' and empty_clean_{target_var} == False"
 ).reset_index(drop=True)

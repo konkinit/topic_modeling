@@ -2,9 +2,13 @@ from dataclasses import dataclass
 from bertopic.vectorizers import ClassTfidfTransformer
 from bertopic.representation import MaximalMarginalRelevance
 from hdbscan import HDBSCAN
+from psutil import cpu_count
 from umap import UMAP
 from sklearn.feature_extraction.text import CountVectorizer
 from typing import Union
+
+
+NB_WORKERS_ = cpu_count(logical=False)//2
 
 
 @dataclass
@@ -66,3 +70,10 @@ class st_sess_data:
     id_docs: str = "id_docs"
     df_docs: str = "df_docs"
     n_topics: str = "n_topics"
+
+
+@dataclass
+class parallelism_data:
+    nb_workers: int = NB_WORKERS_
+    progress_bar: bool = False
+    verbose: int = 0

@@ -284,3 +284,7 @@ def verbatim_lang(x: str):
     if x in ["fr", "en"]:
         return x
     return "other_lang"
+
+
+def empty_verbatim_assertion(x):
+    return len(x) == 0
