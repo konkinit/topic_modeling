@@ -3,19 +3,10 @@ import sys
 import plotly.express as px
 import streamlit as st
 from datetime import datetime
-from pandarallel import pandarallel
 
 if os.getcwd() not in sys.path:
     sys.path.append(os.getcwd())
-from src.config import parallelism_data
 from src.utils import verbatim_lang, verbatim_length
-
-
-pandarallel.initialize(
-    progress_bar=parallelism_data.progress_bar,
-    nb_workers=parallelism_data.nb_workers,
-    verbose=parallelism_data.verbose
-)
 
 
 st.title("Metadata Statistics")
@@ -41,10 +32,10 @@ df_docs[date_var] = df_docs[date_var].apply(
 
 df_docs["language"] = (
     df_docs[target_var]
-    .parallel_apply(preprocessor.getLanguage)
-    .parallel_apply(verbatim_lang)
+    .apply(preprocessor.getLanguage)
+    .apply(verbatim_lang)
 )
-df_docs["length"] = df_docs[target_var].parallel_apply(
+df_docs["length"] = df_docs[target_var].apply(
     verbatim_length
 )
 df_lang = df_docs[

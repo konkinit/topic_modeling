@@ -141,6 +141,15 @@ def getTokenizer(
         params: tokenizer_data,
         list_custom_sw: List[str]
 ) -> CountVectorizer:
+    """Configure and return a count vectorizer model
+
+    Args:
+        params (tokenizer_data): config params
+        list_custom_sw (List[str]): list of custom stopword
+
+    Returns:
+        CountVectorizer: model to pass into BERTopi
+    """
     return (
         CountVectorizer(
             min_df=params.min_df,

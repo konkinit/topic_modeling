@@ -1,7 +1,6 @@
 import os
 import sys
 import streamlit as st
-from pandarallel import pandarallel
 
 if os.getcwd() not in sys.path:
     sys.path.append(os.getcwd())
@@ -11,8 +10,7 @@ from src.config import (
     tfidf_data,
     tokenizer_data,
     mmr_data,
-    bertopic_data,
-    parallelism_data
+    bertopic_data
 )
 from src.modeling import _BERTopic
 from src.utils import (
@@ -22,13 +20,6 @@ from src.utils import (
     getTfidfTransformers,
     getTokenizer,
     empty_verbatim_assertion
-)
-
-
-pandarallel.initialize(
-    progress_bar=parallelism_data.progress_bar,
-    nb_workers=parallelism_data.nb_workers,
-    verbose=parallelism_data.verbose
 )
 
 
@@ -55,10 +46,11 @@ df_docs[f"clean_{target_var}"] = df_docs[target_var].parallel_apply(
 )
 df_docs[
     f"empty_clean_{target_var}"
-] = df_docs[f"clean_{target_var}"].parallel_apply(empty_verbatim_assertion)
+] = df_docs[f"clean_{target_var}"].apply(empty_verbatim_assertion)
 df_docs = df_docs.query(
-    f"language == '{language[:2]}' and empty_clean_{target_var} == False"
+    f"empty_clean_{target_var} == False"
 ).reset_index(drop=True)
+# language == '{language[:2]}' and
 st.session_state["df_docs"] = df_docs
 raw_docs, docs = (
     df_docs[target_var].tolist(),

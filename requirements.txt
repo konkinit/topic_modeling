@@ -11,6 +11,7 @@ protobuf
 flake8
 streamlit
 multidict
+pandarallel
 spacy
 spacy_langdetect
 black
