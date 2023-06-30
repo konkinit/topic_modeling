@@ -317,6 +317,15 @@ def visualize_topic_barchart(
 
 
 def verbatim_length(x: str) -> int:
+    """Get a verbatim number of
+    blank-separated tokens
+
+    Args:
+        x (str): verbatim
+
+    Returns:
+        int: num of tokens
+    """
     return len(x.split(" "))
 
 
@@ -333,6 +342,16 @@ def empty_verbatim_assertion(x) -> bool:
 
 
 def verbatim_lang(x: str) -> str:
+    """Extract the language id from language
+    string
+
+    Args:
+        x (str): language string name e.g.
+        french, english
+
+    Returns:
+        str: language id in two 2 letters
+    """
     if x in ["fr", "en"]:
         return x
     return "other_lang"

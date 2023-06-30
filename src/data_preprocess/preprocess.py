@@ -94,16 +94,40 @@ class Preprocessing:
         return text_no_punct_digit_nsstr
 
     def lemmatize(self, text: str) -> str:
+        """Lemmatize a text
+
+        Args:
+            text (str): raw text
+
+        Returns:
+            str: lemmatized text
+        """
         doc = self.nlp(text)
         return " ".join([token.lemma_ for token in doc])
 
     def stem(self, text: str):
+        """Stem a text
+
+        Args:
+            text (str): raw text
+
+        Returns:
+            str: stemmed text
+        """
         doc = self.nlp(text)
         return " ".join(
             [self.stemmer.stem(token.text) for token in doc]
         )
 
     def remove_stopwords(self, text: str) -> str:
+        """Remove stop words from a text
+
+        Args:
+            text (str): raw text
+
+        Returns:
+            str: text without stop-word
+        """
         clean_token = []
         for t in self.tokenize(text):
             if not (t in self.stop_words_):
@@ -111,6 +135,14 @@ class Preprocessing:
         return " ".join(clean_token)
 
     def pipeline(self, text: str) -> str:
+        """Preprocessing pipeline
+
+        Args:
+            text (str): raw text
+
+        Returns:
+            str: preprocessed text
+        """
         return self.remove_stopwords(
                     self.lemmatize(
                         self.remove_punct_digit_nonsensstring(
