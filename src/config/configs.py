@@ -1,9 +1,13 @@
 from dataclasses import dataclass
 from bertopic.vectorizers import ClassTfidfTransformer
-from bertopic.representation import MaximalMarginalRelevance
+from bertopic.representation import (
+    MaximalMarginalRelevance,
+    KeyBERTInspired
+)
 from hdbscan import HDBSCAN
 from psutil import cpu_count
 from umap import UMAP
+from sentence_transformers import SentenceTransformer
 from sklearn.feature_extraction.text import CountVectorizer
 from typing import Union
 
@@ -52,11 +56,13 @@ class hdbscan_data:
 
 @dataclass
 class bertopic_data:
+    sent_transformers_model: SentenceTransformer
     umap_model: UMAP
     hdbscan_model: HDBSCAN
     vectorizer_model: CountVectorizer
     ctfidf_model: ClassTfidfTransformer
     mmr_model: MaximalMarginalRelevance
+    keybertinspired_model: KeyBERTInspired
     nr_topics: Union[str, int] = "auto"
     top_n_words: int = 10
     n_gram_range: tuple = (1, 2)

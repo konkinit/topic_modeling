@@ -5,6 +5,7 @@ import streamlit as st
 if os.getcwd() not in sys.path:
     sys.path.append(os.getcwd())
 from src.config import (
+    sent_transformers_data,
     umap_data,
     hdbscan_data,
     tfidf_data,
@@ -19,6 +20,8 @@ from src.utils import (
     getMaximalMarginalRelevance,
     getTfidfTransformers,
     getTokenizer,
+    getEmbeddingsModel,
+    getKeyBERTInspired,
     empty_verbatim_assertion
 )
 
@@ -41,7 +44,7 @@ preprocessor = st.session_state["preprocessor"]
 transformer = st.session_state["transformer"]
 
 
-df_docs[f"clean_{target_var}"] = df_docs[target_var].parallel_apply(
+df_docs[f"clean_{target_var}"] = df_docs[target_var].apply(
     preprocessor.pipeline
 )
 df_docs[
@@ -57,6 +60,9 @@ raw_docs, docs = (
     df_docs[f"clean_{target_var}"].tolist()
 )
 
+sent_transformers_model = getEmbeddingsModel(
+    sent_transformers_data()
+)
 umap_model = getDimReductionModel(umap_data())
 hdbscan_model = getClusteringModel(hdbscan_data())
 vectorizer_model = getTokenizer(
@@ -65,12 +71,15 @@ vectorizer_model = getTokenizer(
 )
 ctfidf_model = getTfidfTransformers(tfidf_data())
 mmr_model = getMaximalMarginalRelevance(mmr_data())
+keybertinspired_model = getKeyBERTInspired()
 bertopic_config = bertopic_data(
+    sent_transformers_model,
     umap_model,
     hdbscan_model,
     vectorizer_model,
     ctfidf_model,
-    mmr_model
+    mmr_model,
+    keybertinspired_model
 )
 bert_topic_inst = _BERTopic(bertopic_config)
 

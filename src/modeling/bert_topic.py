@@ -10,7 +10,6 @@ if os.getcwd() not in sys.path:
     sys.path.append(os.getcwd())
 from src.config import bertopic_data
 from src.utils import (
-    getEmbeddings,
     get_wordcloud_object,
     visualize_topic_barchart
 )
@@ -24,10 +23,11 @@ class _BERTopic:
             n_gram_range=bertopic_params.n_gram_range,
             min_topic_size=bertopic_params.min_topic_size,
             umap_model=bertopic_params.umap_model,
+            embedding_model=bertopic_params.sent_transformers_model,
             hdbscan_model=bertopic_params.hdbscan_model,
             vectorizer_model=bertopic_params.vectorizer_model,
             ctfidf_model=bertopic_params.ctfidf_model,
-            representation_model=bertopic_params.mmr_model,
+            representation_model=bertopic_params.keybertinspired_model
         )
 
     def fit_or_load(
@@ -48,10 +48,7 @@ class _BERTopic:
         if os.path.isfile(os.path.join(path_)):
             self.model = BERTopic.load(f"./{path_}")
         else:
-            self.model.fit(
-                docs,
-                getEmbeddings(transformer_name, docs_name, docs)
-            )
+            self.model.fit(docs)
             self.model.save(f"./{path_}", save_embedding_model=True)
 
     def _heatmap(self) -> Figure:

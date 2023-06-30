@@ -6,7 +6,9 @@ import pickle as pkl
 from multidict import MultiDict
 import warnings
 from bertopic.vectorizers import ClassTfidfTransformer
-from bertopic.representation import MaximalMarginalRelevance
+from bertopic.representation import (
+    MaximalMarginalRelevance, KeyBERTInspired
+)
 from hdbscan import HDBSCAN
 from numpy import ndarray, arange
 from umap import UMAP
@@ -23,6 +25,7 @@ from wordcloud import WordCloud
 if os.getcwd() not in sys.path:
     sys.path.append(os.getcwd())
 from src.config import (
+    sent_transformers_data,
     umap_data,
     hdbscan_data,
     tfidf_data,
@@ -50,18 +53,18 @@ def email_check(text: str) -> bool:
 
 
 def getEmbeddingsModel(
-        transformer_name: str
+        params: sent_transformers_data
 ) -> SentenceTransformer:
     """Configure and Return an Embedding model
 
     Args:
-        transformer_name (str): name of the transformer
+        params (sent_transformers_data): params
 
     Returns:
         SentenceTransformer: an objectif of type
             SentenceTransformer
     """
-    return SentenceTransformer(transformer_name)
+    return SentenceTransformer(params.model_name)
 
 
 def getEmbeddings(
@@ -69,6 +72,16 @@ def getEmbeddings(
         docs_name: str,
         docs: List[str]
 ) -> Union[List[Tensor], ndarray, Tensor]:
+    """Get inputs embeddings from transformer-based model
+
+    Args:
+        transformer_name (str): transformer model name
+        docs_name (str): documents name
+        docs (List[str]): docs
+
+    Returns:
+        Union[List[Tensor], ndarray, Tensor]: embeddings
+    """
     model_n = transformer_name.split("/")[-1]
     path_ = f"data/embeddings-{docs_name}-{model_n}.pkl"
     if os.path.isfile(os.path.join(path_)):
@@ -116,27 +129,6 @@ def getClusteringModel(params: hdbscan_data) -> HDBSCAN:
     )
 
 
-def context_stopwords(
-        language: str,
-        list_custom_sw: List[str]
-) -> List:
-    """Union offical language stopword and context stop_word and
-    return a list of stop_word
-
-    Args:
-        language (str): documents language
-        list_custom_sw (List[str]): custom stopwords based
-        on a the context
-
-    Returns:
-        List: stop-words
-    """
-    with open(f'./data/sw-{language}.txt') as f:
-        sw_ = [line.strip() for line in f.readlines()]
-    f.close()
-    return list(set(list_custom_sw+sw_))
-
-
 def getTokenizer(
         params: tokenizer_data,
         list_custom_sw: List[str]
@@ -157,7 +149,7 @@ def getTokenizer(
             )
         if params.language == "english"
         else CountVectorizer(
-            min_df=params.min_df,
+            # min_df=params.min_df,
             stop_words=context_stopwords(params.language, list_custom_sw)
         )
     )
@@ -168,15 +160,54 @@ def getTfidfTransformers(
 ) -> ClassTfidfTransformer:
     return ClassTfidfTransformer(
         reduce_frequent_words=params.reduce_freq_words
-        )
+    )
 
 
 def getMaximalMarginalRelevance(
         params: mmr_data
 ) -> MaximalMarginalRelevance:
+    """Configure and return Maximal Marginal Relevance model
+
+    Args:
+        params (mmr_data): params
+
+    Returns:
+        MaximalMarginalRelevance: mmr object to pass into
+        BERTopic
+    """
     return MaximalMarginalRelevance(
         diversity=params.diversity, top_n_words=params.top_n_words
     )
+
+
+def getKeyBERTInspired() -> KeyBERTInspired:
+    """Configure and return a KeyBERTInspired model
+
+    Returns:
+        KeyBERTInspired: configured model for representation
+    """
+    return KeyBERTInspired()
+
+
+def context_stopwords(
+        language: str,
+        list_custom_sw: List[str]
+) -> List:
+    """Union offical language stopword and context stop_word and
+    return a list of stop_word
+
+    Args:
+        language (str): documents language
+        list_custom_sw (List[str]): custom stopwords based
+        on a the context
+
+    Returns:
+        List: stop-words
+    """
+    with open(f'./data/sw-{language}.txt') as f:
+        sw_ = [line.strip() for line in f.readlines()]
+    f.close()
+    return list(set(list_custom_sw+sw_))
 
 
 def plot_wordcloud(
@@ -285,15 +316,23 @@ def visualize_topic_barchart(
     ax.set_xlabel("score")
 
 
-def verbatim_length(x: str):
+def verbatim_length(x: str) -> int:
     return len(x.split(" "))
 
 
-def verbatim_lang(x: str):
+def empty_verbatim_assertion(x) -> bool:
+    """Check if a verbatim is empty
+
+    Args:
+        x (_type_): verbatim
+
+    Returns:
+        bool: empty flag
+    """
+    return len(x) == 0
+
+
+def verbatim_lang(x: str) -> str:
     if x in ["fr", "en"]:
         return x
     return "other_lang"
-
-
-def empty_verbatim_assertion(x):
-    return len(x) == 0
