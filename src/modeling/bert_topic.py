@@ -165,6 +165,3 @@ class _BERTopic:
             bbox_inches="tight", dpi=500
         )
         return fig
-
-
-# streamlit run ./src/frontend/Onboarding.py

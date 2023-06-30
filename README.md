@@ -41,9 +41,17 @@ docker run -p 8501:8501 -d kidrissa/bertopicapp:latest
 - Through Repo cloning (to be performed preferable on a Linux-based OS):
 ```bash
 git clone https://github.com/konkinit/topic_modeling.git
+```
 
+```bash
+cd topic_modeling/
+```
+
+```bash
 bash package_installing.sh
+```
 
+```bash
 streamlit run ./src/frontend/Onboarding.py
 ```
 
