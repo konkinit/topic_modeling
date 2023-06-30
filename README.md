@@ -21,6 +21,7 @@
   <img alt="Docker Image Size (latest by date)" src="https://img.shields.io/docker/image-size/kidrissa/bertopicapp?style=for-the-badge">
 </p>
 
+
 ## ToDo
 
 - Write Unit Tests ...
@@ -28,6 +29,7 @@
 
 ## Getting Started
 
+- Throufgh Docker Image:
 ```bash
 docker pull kidrissa/bertopicapp:latest
 ```
@@ -35,6 +37,26 @@ docker pull kidrissa/bertopicapp:latest
 ```bash
 docker run -p 8501:8501 -d kidrissa/bertopicapp:latest
 ```
+
+- Through Repo cloning (to be performed preferable on a Linux-based OS):
+```bash
+git clone https://github.com/konkinit/topic_modeling.git
+
+bash package_installing.sh
+
+streamlit run ./src/frontend/Onboarding.py
+```
+
+It is recommended to upload a dataset in `.csv` format with `|` as separator. 
+
+
+## Continious Integration
+
+One continous integration (CI) procedure with 2 jobs mainly is crafted and launched at 
+every push to the main branch:
+
+- Pytest collects the test from the tests folder and executes them
+- if Testing passes, a Docker Image is built and pushed onto the docker hub
 
 ## Citation
 

@@ -16,6 +16,12 @@ NB_WORKERS_ = cpu_count(logical=False)//2
 
 
 @dataclass
+class preprocessor_data:
+    language: str = "french"
+    spacy_model: str = 'fr_core_news_md'
+
+
+@dataclass
 class sent_transformers_data:
     model_name: str = "dangvantuan/sentence-camembert-large"
 

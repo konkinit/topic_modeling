@@ -45,13 +45,16 @@ df_lang = df_docs[
 
 col1, col2, col3 = st.columns(3)
 col1.metric(
-    label="Verbatims", value=df_docs[target_var].shape[0]
+    label="Verbatims",
+    value=df_docs[target_var].shape[0]
 )
 col2.metric(
-    label="First Date", value=df_docs[date_var].min().strftime("%Y-%m-%d")
+    label="First Date",
+    value=df_docs[date_var].min().strftime("%Y-%m-%d")
 )
 col3.metric(
-    label="Last Date", value=df_docs[date_var].max().strftime("%Y-%m-%d")
+    label="Last Date",
+    value=df_docs[date_var].max().strftime("%Y-%m-%d")
 )
 st.plotly_chart(
     px.pie(

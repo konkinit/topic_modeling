@@ -1,4 +1,5 @@
 from .configs import (
+    preprocessor_data,
     umap_data,
     hdbscan_data,
     sent_transformers_data,
@@ -12,6 +13,7 @@ from .configs import (
 
 
 __all__ = [
+    "preprocessor_data",
     "umap_data",
     "hdbscan_data",
     "sent_transformers_data",
