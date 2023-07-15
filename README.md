@@ -55,8 +55,6 @@ bash package_installing.sh
 streamlit run ./src/frontend/Onboarding.py
 ```
 
-It is recommended to upload a dataset in `.csv` format with `|` as separator. 
-
 
 ## Continious Integration
 

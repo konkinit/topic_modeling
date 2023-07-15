@@ -1,6 +1,17 @@
 FROM python:3.10-slim
 
-COPY . ./topic_modeling
+ARG USERNAME=appuser
+ARG USER_UID=1000
+
+RUN useradd --uid $USER_UID -m $USERNAME
+
+USER ${USERNAME}
+
+ENV PATH="${PATH}:/home/${USERNAME}}/.local/bin"
+
+COPY --chown=${USERNAME}:${USERNAME} . ./topic_modeling
+
+WORKDIR /home/${USERNAME}/topic_modeling
 
 WORKDIR /topic_modeling
 

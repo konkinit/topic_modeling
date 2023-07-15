@@ -1,6 +1,6 @@
-pip install --upgrade pip
+pip install --user --upgrade pip
 
-pip install -r requirements.txt
+pip install --user -r requirements.txt
 
 python -m spacy download fr_core_news_md
 

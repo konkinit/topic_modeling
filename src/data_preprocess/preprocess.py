@@ -19,12 +19,19 @@ def language_detector(nlp, name):
 
 
 class Preprocessing:
-    def __init__(self, model_name, language, _context_stopwords):
+    def __init__(
+            self,
+            model_name: str,
+            language: str,
+            _context_stopwords: List[str],
+            use_preprocessing: bool = True
+    ) -> None:
         self.nlp = load(model_name)
         self.nlp.max_length = 2000000
         self.nlp.add_pipe('language_detector', last=True)
         self.stemmer = SnowballStemmer(language=language)
         self.stop_words_ = context_stopwords(language, _context_stopwords)
+        self.use_preprocessing = use_preprocessing
 
     def getLanguage(self, text: str) -> str:
         """Get the language of a doc using spacy lang detect
@@ -143,10 +150,12 @@ class Preprocessing:
         Returns:
             str: preprocessed text
         """
-        return self.remove_stopwords(
-                    self.lemmatize(
-                        self.remove_punct_digit_nonsensstring(
-                            self.transform_email_data(text)
-                        )
+        if self.use_preprocessing:
+            return self.remove_stopwords(
+                self.lemmatize(
+                    self.remove_punct_digit_nonsensstring(
+                        self.transform_email_data(text)
                     )
                 )
+            )
+        return text

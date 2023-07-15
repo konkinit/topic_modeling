@@ -8,7 +8,6 @@ nltk
 black
 wordcloud
 protobuf
-flake8
 streamlit
 multidict
 pandarallel

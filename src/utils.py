@@ -3,13 +3,15 @@ import sys
 import re
 import matplotlib.pyplot as plt
 import pickle as pkl
-from multidict import MultiDict
 import warnings
+from bertopic import BERTopic
 from bertopic.vectorizers import ClassTfidfTransformer
 from bertopic.representation import (
     MaximalMarginalRelevance, KeyBERTInspired
 )
 from hdbscan import HDBSCAN
+from multidict import MultiDict
+from matplotlib import axes
 from numpy import ndarray, arange
 from umap import UMAP
 from random import choice
@@ -35,6 +37,17 @@ from src.config import (
 
 
 warnings.filterwarnings("ignore")
+
+
+color_list = [
+    "#D55E00",
+    "#0072B2",
+    "#CC79A7",
+    "#E69F00",
+    "#56B4E9",
+    "#009E73",
+    "#F0E442"
+]
 
 
 def email_check(text: str) -> bool:
@@ -158,6 +171,14 @@ def getTokenizer(
 def getTfidfTransformers(
         params: tfidf_data
 ) -> ClassTfidfTransformer:
+    """Configure and return a TFIDF transformer
+
+    Args:
+        params (tfidf_data): tfidf model params
+
+    Returns:
+        ClassTfidfTransformer: tfidf object
+    """
     return ClassTfidfTransformer(
         reduce_frequent_words=params.reduce_freq_words
     )
@@ -211,14 +232,14 @@ def context_stopwords(
 
 
 def plot_wordcloud(
-        model,
+        model: BERTopic,
         topic: int,
         wc_name: str
 ) -> None:
     """Plot wordcloud
 
     Args:
-        model (_type_): bertopic model
+        model (BERTopic): bertopic model
         topic (int): topic id number
         wc_name (str): wordcloud storage name
     """
@@ -235,7 +256,16 @@ def plot_wordcloud(
     plt.show()
 
 
-def get_wordcloud_object(model, topic: int) -> None:
+def get_wordcloud_object(model: BERTopic, topic: int) -> WordCloud:
+    """Plot a topic wordcloud
+
+    Args:
+        model (BERTopic): bertopic model
+        topic (int): topic id
+
+    Returns:
+        WordCloud: wordcloud object
+    """
     text = {word: value for word, value in model.get_topic(topic)}
     wc = WordCloud(background_color="white", max_words=1000)
     wc.generate_from_frequencies(text)
@@ -290,20 +320,21 @@ def global_wordcloud(
 
 
 def visualize_topic_barchart(
-        ax,
-        topic_model,
+        ax: axes,
+        topic_model: BERTopic,
         topic: int,
         n_words: int = 10
 ) -> None:
-    color_ = choice([
-        "#D55E00",
-        "#0072B2",
-        "#CC79A7",
-        "#E69F00",
-        "#56B4E9",
-        "#009E73",
-        "#F0E442"
-    ])
+    """Plug in an axe object a topic frequent word score
+
+    Args:
+        ax (axes): matplotlib axe object
+        topic_model (BERTopic): bertopic model object
+        topic (int): topic id
+        n_words (int, optional): number of frequent words.
+        Defaults to 10.
+    """
+    color_ = choice(color_list)
     words = [
         word + "  " for word, _ in topic_model.get_topic(topic)
     ][:n_words][::-1]
@@ -346,8 +377,7 @@ def verbatim_lang(x: str) -> str:
     string
 
     Args:
-        x (str): language string name e.g.
-        french, english
+        x (str): language string name e.g. french, english
 
     Returns:
         str: language id in two 2 letters

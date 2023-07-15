@@ -1,7 +1,7 @@
 import os
 import sys
 import matplotlib.pyplot as plt
-from matplotlib import gridspec
+from matplotlib import gridspec, use
 from bertopic import BERTopic
 from pandas import concat, DataFrame
 from plotly.graph_objects import Figure
@@ -15,8 +15,11 @@ from src.utils import (
 )
 
 
+use('pgf')
+
+
 class _BERTopic:
-    def __init__(self, bertopic_params: bertopic_data):
+    def __init__(self, bertopic_params: bertopic_data) -> None:
         self.model = BERTopic(
             nr_topics=bertopic_params.nr_topics,
             top_n_words=bertopic_params.top_n_words,
@@ -85,7 +88,10 @@ class _BERTopic:
         )
 
     def _barchart(self) -> Figure:
-        """Display all topics composition barchart
+        """Return all topics composition barchart
+
+        Returns:
+            Figure: barchat figure object
         """
         n_topics_ = max(self.model.topics_)
         return self.model.visualize_barchart(
@@ -164,4 +170,8 @@ class _BERTopic:
             f"./data/topics_wc/topic_{topic_id}.png",
             bbox_inches="tight", dpi=500
         )
+        # fig.savefig(
+        #    f"./data/topics_wc/topic_{topic_id}.pgf",
+        #    bbox_inches="tight", format="pgf"
+        # )
         return fig

@@ -35,7 +35,12 @@ st.markdown(
     "Load a dataset and provide the verbatim feature name: "
 )
 
-uploaded_file = st.file_uploader("Choose the dataset", type=['csv'])
+uploaded_file = st.file_uploader(
+    "Choose the dataset",
+    type=['csv'],
+    help="It is recommended to upload a dataset in `.csv` \
+    format with `|` as separator."
+)
 if uploaded_file is not None:
     df_docs = read_csv(uploaded_file, sep="|", encoding="utf-8")
     id_docs = uploaded_file.name.split(".")[0]
@@ -46,7 +51,8 @@ if uploaded_file is not None:
         "Enter the verbatim date variable name if it exists ",
         help="Leave it empty if there is no date feature"
     )
-    st.session_state["target_var"] = target_var
-    st.session_state["date"] = date_var
-    st.session_state["id_docs"] = id_docs
-    st.session_state["df_docs"] = df_docs
+    if target_var and date_var:
+        st.session_state["target_var"] = target_var
+        st.session_state["date"] = date_var
+        st.session_state["id_docs"] = id_docs
+        st.session_state["df_docs"] = df_docs[[date_var, target_var]]
