@@ -1,7 +1,7 @@
 import os
 import sys
 import matplotlib.pyplot as plt
-from matplotlib import gridspec, use
+from matplotlib import gridspec
 from bertopic import BERTopic
 from pandas import concat, DataFrame
 from plotly.graph_objects import Figure
@@ -13,9 +13,6 @@ from src.utils import (
     get_wordcloud_object,
     visualize_topic_barchart
 )
-
-
-use('pgf')
 
 
 class _BERTopic:
@@ -168,7 +165,7 @@ class _BERTopic:
         fig.tight_layout()
         fig.savefig(
             f"./data/topics_wc/topic_{topic_id}.png",
-            bbox_inches="tight", dpi=500
+            bbox_inches="tight", dpi=700
         )
         # fig.savefig(
         #    f"./data/topics_wc/topic_{topic_id}.pgf",

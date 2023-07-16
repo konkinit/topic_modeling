@@ -56,7 +56,8 @@ if uploaded_file is not None:
     preprocessor = Preprocessing(
         spacy_model,
         language,
-        list_context_sw
+        list_context_sw,
+        False
     )
 
     st.session_state["language"] = language

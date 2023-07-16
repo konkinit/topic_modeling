@@ -3,7 +3,6 @@ import sys
 import re
 import matplotlib.pyplot as plt
 import pickle as pkl
-import warnings
 from bertopic import BERTopic
 from bertopic.vectorizers import ClassTfidfTransformer
 from bertopic.representation import (
@@ -22,6 +21,7 @@ from typing import (
     List,
     Union
 )
+from warnings import filterwarnings
 from wordcloud import WordCloud
 
 if os.getcwd() not in sys.path:
@@ -36,7 +36,7 @@ from src.config import (
 )
 
 
-warnings.filterwarnings("ignore")
+filterwarnings("ignore")
 
 
 color_list = [
@@ -277,6 +277,16 @@ def getFrequencyDictForText(
         language: str,
         list_custom_sw: List[str]
 ) -> MultiDict:
+    """Get for a given text a TF dict
+
+    Args:
+        sentence (str): text
+        language (str): the text language for stopwords removing
+        list_custom_sw (List[str]): list of context stopwords
+
+    Returns:
+        MultiDict: TF dict
+    """
     fullTermsDict = MultiDict()
     tmpDict = {}
     stopword_list = context_stopwords(language, list_custom_sw)
@@ -360,11 +370,11 @@ def verbatim_length(x: str) -> int:
     return len(x.split(" "))
 
 
-def empty_verbatim_assertion(x) -> bool:
+def empty_verbatim_assertion(x: str) -> bool:
     """Check if a verbatim is empty
 
     Args:
-        x (_type_): verbatim
+        x (str): verbatim
 
     Returns:
         bool: empty flag

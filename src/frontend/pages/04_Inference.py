@@ -42,6 +42,7 @@ col3.metric(
     label="Topic Name", value=df_topic_stat.Name.values[0]
 )
 df_doc_representative = bert_topic_inst.representative_docs(docs, raw_docs)
+df_topic_info = bert_topic_inst.model.get_topic_info()
 st.dataframe(
     df_doc_representative.query(
         f"topic_id == {topic_id}"
@@ -57,7 +58,19 @@ with open(f"./data/topics_wc/topic_{topic_id}.png", "rb") as file:
     )
 st.download_button(
     label="Download representative docs as CSV",
-    data=df_doc_representative.to_csv(encoding="utf-8"),
+    data=df_doc_representative.to_csv(
+        encoding="utf-8",
+        index=False
+    ),
     file_name='df_doc_representative.csv',
+    mime='text/csv',
+)
+st.download_button(
+    label="Download topics info docs as CSV",
+    data=df_topic_info.iloc[:, :4].to_csv(
+        encoding="utf-8",
+        index=False
+    ),
+    file_name='topics_info.csv',
     mime='text/csv',
 )
