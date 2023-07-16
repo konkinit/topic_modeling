@@ -5,9 +5,7 @@ pytest
 hdbscan
 bertopic
 nltk
-black
 wordcloud
-protobuf
 streamlit
 multidict
 pandarallel

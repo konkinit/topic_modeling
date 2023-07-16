@@ -8,11 +8,9 @@ from bertopic.vectorizers import ClassTfidfTransformer
 from bertopic.representation import (
     MaximalMarginalRelevance, KeyBERTInspired
 )
-from hdbscan import HDBSCAN
 from multidict import MultiDict
 from matplotlib import axes
 from numpy import ndarray, arange
-from umap import UMAP
 from random import choice
 from torch import Tensor
 from sklearn.feature_extraction.text import CountVectorizer
@@ -21,8 +19,16 @@ from typing import (
     List,
     Union
 )
+import torch
 from warnings import filterwarnings
 from wordcloud import WordCloud
+
+if torch.cuda.is_available():
+    from cuml.cluster import HDBSCAN
+    from cuml.manifold import UMAP
+else:
+    from hdbscan import HDBSCAN
+    from umap import UMAP
 
 if os.getcwd() not in sys.path:
     sys.path.append(os.getcwd())

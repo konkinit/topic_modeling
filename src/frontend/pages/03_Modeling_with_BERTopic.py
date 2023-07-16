@@ -43,10 +43,12 @@ list_context_sw = st.session_state["context_sw"]
 preprocessor = st.session_state["preprocessor"]
 transformer = st.session_state["transformer"]
 
-
-df_docs[f"clean_{target_var}"] = df_docs[target_var].apply(
-    preprocessor.pipeline
-)
+if preprocessor.use_preprocessing:
+    df_docs[f"clean_{target_var}"] = df_docs[target_var].apply(
+        preprocessor.pipeline
+    )
+else:
+    df_docs[f"clean_{target_var}"] = df_docs[target_var].copy()
 df_docs[
     f"empty_clean_{target_var}"
 ] = df_docs[f"clean_{target_var}"].apply(empty_verbatim_assertion)

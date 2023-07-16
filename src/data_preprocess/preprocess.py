@@ -150,12 +150,10 @@ class Preprocessing:
         Returns:
             str: preprocessed text
         """
-        if self.use_preprocessing:
-            return self.remove_stopwords(
-                self.lemmatize(
-                    self.remove_punct_digit_nonsensstring(
-                        self.transform_email_data(text)
-                    )
+        return self.remove_stopwords(
+            self.lemmatize(
+                self.remove_punct_digit_nonsensstring(
+                    self.transform_email_data(text)
                 )
             )
-        return text
+        )
