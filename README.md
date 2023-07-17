@@ -24,6 +24,8 @@
 
 ## ToDo
 
+- Fix Docker CI
+- Speed-Up pandas functions with CuDF
 - Write Unit Tests ...
 
 

@@ -1,9 +1,9 @@
 flake8
 pytest
+black
 pandas
-pytest
-hdbscan
 bertopic
+hdbscan
 nltk
 wordcloud
 streamlit
@@ -11,8 +11,6 @@ multidict
 pandarallel
 spacy
 spacy_langdetect
-black
-xlsxwriter
 stop-words
-protobuf==3.20.0
+protobuf==3.20.3
 psutil
