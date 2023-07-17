@@ -1,5 +1,11 @@
+import os
+import sys
 import streamlit as st
 from pandas import read_csv
+
+if os.getcwd() not in sys.path:
+    sys.path.append(os.getcwd())
+from src.config import st_sess_data
 
 
 st.title("Topic Modeling with BERTopic")
@@ -52,7 +58,9 @@ if uploaded_file is not None:
         help="Leave it empty if there is no date feature"
     )
     if target_var and date_var:
-        st.session_state["target_var"] = target_var
-        st.session_state["date"] = date_var
-        st.session_state["id_docs"] = id_docs
-        st.session_state["df_docs"] = df_docs[[date_var, target_var]]
+        st.session_state[st_sess_data.TARGET_VAR] = target_var
+        st.session_state[st_sess_data.DATE_VAR] = date_var
+        st.session_state[st_sess_data.ID_DOCS] = id_docs
+        st.session_state[st_sess_data.DF_DOCS] = df_docs[
+            [date_var, target_var]
+        ]

@@ -1,14 +1,20 @@
+import os
+import sys
 import streamlit as st
 
+if os.getcwd() not in sys.path:
+    sys.path.append(os.getcwd())
+from src.config import st_sess_data
 
-df_docs = st.session_state["df_docs"]
-target_var = st.session_state["target_var"]
+
+df_docs = st.session_state[st_sess_data.DF_DOCS]
+target_var = st.session_state[st_sess_data.TARGET_VAR]
 raw_docs, docs = (
     df_docs[target_var].tolist(),
     df_docs[f"clean_{target_var}"].tolist()
 )
-n_topics = st.session_state["n_topics"]
-bert_topic_inst = st.session_state["bert_topic_inst"]
+n_topics = st.session_state[st_sess_data.N_TOPICS]
+bert_topic_inst = st.session_state[st_sess_data.BERTOPIC_INST]
 
 
 st.markdown(

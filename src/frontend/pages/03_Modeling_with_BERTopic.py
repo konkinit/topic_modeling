@@ -11,7 +11,8 @@ from src.config import (
     tfidf_data,
     tokenizer_data,
     mmr_data,
-    bertopic_data
+    bertopic_data,
+    st_sess_data
 )
 from src.modeling import _BERTopic
 from src.utils import (
@@ -35,13 +36,13 @@ st.markdown(
 )
 
 
-df_docs = st.session_state["df_docs"]
-id_docs = st.session_state["id_docs"]
-target_var = st.session_state["target_var"]
-language = st.session_state["language"]
-list_context_sw = st.session_state["context_sw"]
-preprocessor = st.session_state["preprocessor"]
-transformer = st.session_state["transformer"]
+df_docs = st.session_state[st_sess_data.DF_DOCS]
+id_docs = st.session_state[st_sess_data.ID_DOCS]
+target_var = st.session_state[st_sess_data.TARGET_VAR]
+language = st.session_state[st_sess_data.LANGUAGE]
+list_context_sw = st.session_state[st_sess_data.CONTEXT_SW]
+preprocessor = st.session_state[st_sess_data.PREPROCESSOR]
+transformer = st.session_state[st_sess_data.TRANSFORMER]
 
 if preprocessor.use_preprocessing:
     df_docs[f"clean_{target_var}"] = df_docs[target_var].apply(
@@ -100,11 +101,11 @@ n_topics_ = st.number_input(
     'Insert the desied number of topics',
     value=0,
     help=f"Provide a number between 1 and {n_topics}. If you are \
-    satisfyed with the the current number of topic enter -1."
+    satisfyed with the current number of topic enter -1."
 )
 if n_topics_ > 0:
     bert_topic_inst._reduce_topics(docs, n_topics_)
-    st.session_state["n_topics"] = n_topics_
+    st.session_state[st_sess_data.N_TOPICS] = n_topics_
     st.plotly_chart(
         bert_topic_inst._intertopic()
     )
@@ -112,11 +113,11 @@ if n_topics_ > 0:
         bert_topic_inst._barchart(),
         use_container_width=True
     )
-    st.session_state["bert_topic_inst"] = bert_topic_inst
+    st.session_state[st_sess_data.BERTOPIC_INST] = bert_topic_inst
 if n_topics_ == -1:
-    st.session_state["n_topics"] = n_topics
+    st.session_state[st_sess_data.N_TOPICS] = n_topics
     st.plotly_chart(
         bert_topic_inst._barchart(),
         use_container_width=True
     )
-    st.session_state["bert_topic_inst"] = bert_topic_inst
+    st.session_state[st_sess_data.BERTOPIC_INST] = bert_topic_inst

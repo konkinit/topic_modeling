@@ -5,6 +5,7 @@ import streamlit as st
 if os.getcwd() not in sys.path:
     sys.path.append(os.getcwd())
 from src.data_preprocess import Preprocessing
+from src.config import st_sess_data
 
 
 languages = ['french', 'english']
@@ -60,10 +61,10 @@ if uploaded_file is not None:
         False
     )
 
-    st.session_state["language"] = language
-    st.session_state["spacy_model"] = spacy_model
-    st.session_state["preprocessor"] = preprocessor
-    st.session_state["context_sw"] = list_context_sw
+    st.session_state[st_sess_data.LANGUAGE] = language
+    st.session_state[st_sess_data.SPACY_MODEL] = spacy_model
+    st.session_state[st_sess_data.PREPROCESSOR] = preprocessor
+    st.session_state[st_sess_data.CONTEXT_SW] = list_context_sw
 
 st.markdown(
     """
@@ -77,4 +78,4 @@ transformer = st.selectbox(
     'Choose the transformer model',
     tuple(dict_transformers[language])
 )
-st.session_state["transformer"] = transformer
+st.session_state[st_sess_data.TRANSFORMER] = transformer

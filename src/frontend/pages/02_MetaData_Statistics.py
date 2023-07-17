@@ -2,11 +2,12 @@ import os
 import sys
 import plotly.express as px
 import streamlit as st
-from datetime import datetime
+from pandas import to_datetime
 
 if os.getcwd() not in sys.path:
     sys.path.append(os.getcwd())
 from src.utils import verbatim_lang, verbatim_length
+from src.config import st_sess_data
 
 
 st.title("Metadata Statistics")
@@ -17,23 +18,21 @@ st.markdown(
 )
 
 
-df_docs = st.session_state["df_docs"]
-date_var = st.session_state["date"]
-target_var = st.session_state["target_var"]
-language = st.session_state["language"]
-spacy_model = st.session_state["spacy_model"]
-preprocessor = st.session_state["preprocessor"]
-list_context_sw = st.session_state["context_sw"]
+df_docs = st.session_state[st_sess_data.DF_DOCS]
+date_var = st.session_state[st_sess_data.DATE_VAR]
+target_var = st.session_state[st_sess_data.TARGET_VAR]
+language = st.session_state[st_sess_data.LANGUAGE]
+spacy_model = st.session_state[st_sess_data.SPACY_MODEL]
+preprocessor = st.session_state[st_sess_data.PREPROCESSOR]
+list_context_sw = st.session_state[st_sess_data.CONTEXT_SW]
 
 
 df_docs[date_var] = df_docs[date_var].apply(
-    lambda x: datetime.strptime(x, "%Y-%m-%d")
+    lambda x: to_datetime(x, format="%Y-%m-%d")
 )
 
-df_docs["language"] = (
-    df_docs[target_var]
-    .apply(preprocessor.getLanguage)
-    .apply(verbatim_lang)
+df_docs["language"] = df_docs[target_var].apply(
+    lambda x: verbatim_lang(preprocessor.getLanguage(x))
 )
 df_docs["length"] = df_docs[target_var].apply(
     verbatim_length
@@ -63,7 +62,8 @@ st.plotly_chart(
         names="language",
         title="Represented languages in verbatims",
         width=500,
-    )
+    ),
+    use_container_width=True
 )
 st.plotly_chart(
     px.histogram(
@@ -73,10 +73,11 @@ st.plotly_chart(
         height=500,
         labels={"length": "Verbatim Length"},
         histnorm="probability density",
-    )
+    ),
+    use_container_width=True
 )
 
 st.dataframe(df_docs.head(), use_container_width=False)
 
 
-st.session_state["df_docs"] = df_docs
+st.session_state[st_sess_data.DF_DOCS] = df_docs

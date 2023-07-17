@@ -14,7 +14,16 @@ from src.utils import context_stopwords, email_check
 
 
 @Language.factory('language_detector')
-def language_detector(nlp, name):
+def language_detector(nlp: Language, name: str) -> LanguageDetector:
+    """Configure a language detector model which is addable to an NLP pipe
+
+    Args:
+        nlp (Language): nlp pipeline
+        name (str): language detector name
+
+    Returns:
+        LanguageDetector: language detector model
+    """
     return LanguageDetector()
 
 

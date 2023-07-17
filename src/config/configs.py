@@ -77,15 +77,21 @@ class bertopic_data:
 
 @dataclass
 class st_sess_data:
-    target_var: str = "target_var"
-    date_var: str = "date"
-    id_docs: str = "id_docs"
-    df_docs: str = "df_docs"
-    n_topics: str = "n_topics"
+    TARGET_VAR: str = "target_var"
+    DATE_VAR: str = "date"
+    ID_DOCS: str = "id_docs"
+    DF_DOCS: str = "df_docs"
+    N_TOPICS: str = "n_topics"
+    LANGUAGE: str = "language"
+    SPACY_MODEL: str = "spacy_model"
+    PREPROCESSOR: str = "preprocessor"
+    CONTEXT_SW: str = "context_sw"
+    TRANSFORMER: str = "transformer"
+    BERTOPIC_INST: str = "bert_topic_inst"
 
 
 @dataclass
 class parallelism_data:
-    nb_workers: int = NB_WORKERS_
-    progress_bar: bool = False
-    verbose: int = 0
+    N_WORKERS: int = NB_WORKERS_
+    SHOW_PROGRESS_BAR: bool = False
+    VERBOSE: int = 0
