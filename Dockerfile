@@ -16,7 +16,7 @@ COPY --chown=${USERNAME}:${USERNAME} . /home/${USERNAME}/topic_modeling
 
 WORKDIR /home/${USERNAME}/topic_modeling
 
-RUN --chown=${USERNAME}:${USERNAME} apt-get -y install gcc
+RUN sudo apt-get -y install gcc
 
 RUN bash package_installing.sh
 
