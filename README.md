@@ -31,7 +31,7 @@
 
 ## Getting Started
 
-- Throufgh Docker Image:
+- Through Docker Image:
 ```bash
 docker pull kidrissa/bertopicapp:latest
 ```

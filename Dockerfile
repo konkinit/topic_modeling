@@ -18,7 +18,7 @@ WORKDIR /home/${USERNAME}/topic_modeling
 
 RUN sudo apt-get -y install gcc
 
-RUN bash package_installing.sh
+RUN bash package_installing.sh -e 'github_action_env'
 
 EXPOSE 8501
 

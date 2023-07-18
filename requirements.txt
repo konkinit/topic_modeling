@@ -1,12 +1,10 @@
-flake8
-pytest
 black
 pandas
+streamlit
 bertopic
 hdbscan
 nltk
 wordcloud
-streamlit
 multidict
 pandarallel
 spacy
