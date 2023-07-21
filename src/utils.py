@@ -164,12 +164,16 @@ def getTokenizer(
     return (
         CountVectorizer(
             min_df=params.min_df,
+            ngram_range=params.n_gram_range,
             stop_words=params.language
             )
         if params.language == "english"
         else CountVectorizer(
-            # min_df=params.min_df,
-            stop_words=context_stopwords(params.language, list_custom_sw)
+            min_df=params.min_df,
+            ngram_range=params.n_gram_range,
+            stop_words=context_stopwords(
+                params.language, list_custom_sw
+            )
         )
     )
 

@@ -16,10 +16,11 @@ dict_spacy_model = {
 dict_transformers = {
     'french': [
         "dangvantuan/sentence-camembert-large",
-        "dangvantuan/sentence-camembert-base"
+        "dangvantuan/sentence-camembert-base",
+        "paraphrase-multilingual-MiniLM-L12-v2"
     ],
     'english': [
-        'bert-large-cased',
+        'all-MiniLM-L6-v2',
         'bert-base-cased'
     ]
 }

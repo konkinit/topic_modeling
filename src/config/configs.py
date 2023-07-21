@@ -5,8 +5,8 @@ from bertopic.representation import (
     KeyBERTInspired
 )
 from hdbscan import HDBSCAN
-from psutil import cpu_count
 from umap import UMAP
+from psutil import cpu_count
 from sentence_transformers import SentenceTransformer
 from sklearn.feature_extraction.text import CountVectorizer
 from typing import Union
@@ -30,6 +30,7 @@ class sent_transformers_data:
 class tokenizer_data:
     language: str = "french"
     min_df: int = 3
+    n_gram_range: tuple = (1, 2)
 
 
 @dataclass
@@ -39,7 +40,7 @@ class tfidf_data:
 
 @dataclass
 class mmr_data:
-    diversity: float = 0.4
+    diversity: float = 0.7
     top_n_words: int = 10
 
 

@@ -64,16 +64,16 @@ raw_docs, docs = (
 )
 
 sent_transformers_model = getEmbeddingsModel(
-    sent_transformers_data()
+    sent_transformers_data
 )
-umap_model = getDimReductionModel(umap_data())
-hdbscan_model = getClusteringModel(hdbscan_data())
+umap_model = getDimReductionModel(umap_data)
+hdbscan_model = getClusteringModel(hdbscan_data)
 vectorizer_model = getTokenizer(
     tokenizer_data(language=language),
     list_context_sw
 )
-ctfidf_model = getTfidfTransformers(tfidf_data())
-mmr_model = getMaximalMarginalRelevance(mmr_data())
+ctfidf_model = getTfidfTransformers(tfidf_data)
+mmr_model = getMaximalMarginalRelevance(mmr_data)
 keybertinspired_model = getKeyBERTInspired()
 bertopic_config = bertopic_data(
     sent_transformers_model,
@@ -81,8 +81,8 @@ bertopic_config = bertopic_data(
     hdbscan_model,
     vectorizer_model,
     ctfidf_model,
+    keybertinspired_model,
     mmr_model,
-    keybertinspired_model
 )
 bert_topic_inst = _BERTopic(bertopic_config)
 
