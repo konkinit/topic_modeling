@@ -1,5 +1,5 @@
 <h1 align="center">
-  Topic Modeling with on BERTopic
+  Topic Modeling with BERTopic
 </br>
 </h1>
 
@@ -25,7 +25,7 @@
 ## ToDo
 
 - Fix Docker CI
-- Speed-Up pandas functions with CuDF
+- Tune BERTopic hyperparams
 - Write Unit Tests ...
 
 

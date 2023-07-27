@@ -164,8 +164,8 @@ class _BERTopic:
         visualize_topic_barchart(ax2, self.model, topic_id, 10)
         fig.tight_layout()
         fig.savefig(
-            f"./data/topics_wc/topic_{topic_id}.png",
-            bbox_inches="tight", dpi=700
+            f"./data/topics_wc/topic_{topic_id}.svg",
+            format="svg", bbox_inches="tight", dpi=700
         )
         # fig.savefig(
         #    f"./data/topics_wc/topic_{topic_id}.pgf",

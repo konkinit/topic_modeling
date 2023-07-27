@@ -54,7 +54,7 @@ class umap_data:
 
 @dataclass
 class hdbscan_data:
-    min_cluster_size: int = 10
+    min_cluster_size: int = 100
     metric: str = "euclidean"
     cluster_selection_method: str = "eom"
     prediction_data: bool = True
