@@ -70,13 +70,13 @@ if uploaded_file is not None:
 st.markdown(
     """
     ## Transformer for BERTopic
-    At the `Embeddings` of BERTopic , a transformer to be downloaded from
-    Hugging Face Hub, is required to encode text data to numeric features.
+    At the `Embeddings` step of BERTopic , a transformer to be downloaded from
+    Hugging Face Hub, is required to encode text data into numeric features.
     """
 )
 
 transformer = st.selectbox(
-    'Choose the transformer model',
+    'Choose the sentence transformer model',
     tuple(dict_transformers[language])
 )
 st.session_state[st_sess_data.TRANSFORMER] = transformer

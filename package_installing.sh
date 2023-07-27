@@ -9,7 +9,7 @@ if [ $env == 'github_action_env' ]
 then
     pip install --user --upgrade pip
 
-    pip install flake8 pytest
+    pip install --user flake8 pytest
 
     pip install --user -r requirements.txt
 

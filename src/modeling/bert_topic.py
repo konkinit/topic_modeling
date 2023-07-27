@@ -27,7 +27,7 @@ class _BERTopic:
             hdbscan_model=bertopic_params.hdbscan_model,
             vectorizer_model=bertopic_params.vectorizer_model,
             ctfidf_model=bertopic_params.ctfidf_model,
-            representation_model=bertopic_params.keybertinspired_model
+            representation_model=bertopic_params.mmr_model
         )
 
     def fit_or_load(

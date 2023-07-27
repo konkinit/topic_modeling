@@ -1,14 +1,12 @@
 black
 pandas
 streamlit
-bertopic
+bertopic[flair]
 hdbscan
 nltk
 wordcloud
 multidict
-pandarallel
 spacy
 spacy_langdetect
 stop-words
 protobuf==3.20.3
-psutil
