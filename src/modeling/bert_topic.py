@@ -19,9 +19,6 @@ class _BERTopic:
     def __init__(self, bertopic_params: bertopic_data) -> None:
         self.model = BERTopic(
             nr_topics=bertopic_params.nr_topics,
-            top_n_words=bertopic_params.top_n_words,
-            n_gram_range=bertopic_params.n_gram_range,
-            min_topic_size=bertopic_params.min_topic_size,
             umap_model=bertopic_params.umap_model,
             embedding_model=bertopic_params.sent_transformers_model,
             hdbscan_model=bertopic_params.hdbscan_model,

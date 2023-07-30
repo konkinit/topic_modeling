@@ -141,6 +141,7 @@ def getClusteringModel(params: hdbscan_data) -> HDBSCAN:
     """
     return HDBSCAN(
         min_cluster_size=params.min_cluster_size,
+        min_samples=params.min_samples,
         metric=params.metric,
         cluster_selection_method=params.cluster_selection_method,
         prediction_data=params.prediction_data,

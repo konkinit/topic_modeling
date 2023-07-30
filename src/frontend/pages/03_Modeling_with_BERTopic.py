@@ -30,8 +30,14 @@ from src.utils import (
 st.title("Modeling with BERTopic")
 st.markdown(
     """
-    This part is dedicated for fitting the stack of models
-    topic generation. After initialising the model ,
+    This part is dedicated for fitting the stack of models for
+    topic generation. Each composed sub-model is initialised with the
+    default values as the following:
+
+
+    To improve topic representation , tuning can be done
+    on HDBSCAN hyperparameters mainly `min_cluster_size` and
+    `min_samples`
     """
 )
 
@@ -98,7 +104,7 @@ st.plotly_chart(
 n_topics = max(bert_topic_inst.model.topics_)
 
 n_topics_ = st.number_input(
-    'Insert the desied number of topics',
+    'Insert the desired number of topics',
     value=0,
     help=f"Provide a number between 1 and {n_topics}. If you are \
     satisfyed with the current number of topic enter -1."
