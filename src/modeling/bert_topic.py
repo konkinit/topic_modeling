@@ -5,6 +5,7 @@ from matplotlib import gridspec
 from bertopic import BERTopic
 from pandas import concat, DataFrame
 from plotly.graph_objects import Figure
+from seaborn import set_theme
 from typing import List
 if os.getcwd() not in sys.path:
     sys.path.append(os.getcwd())
@@ -13,6 +14,9 @@ from src.utils import (
     get_wordcloud_object,
     visualize_topic_barchart
 )
+
+
+set_theme()
 
 
 class _BERTopic:
@@ -26,6 +30,7 @@ class _BERTopic:
             ctfidf_model=bertopic_params.ctfidf_model,
             representation_model=bertopic_params.mmr_model
         )
+        self._min_cluster_size = bertopic_params.hdbscan_model.min_cluster_size
 
     def fit_or_load(
             self,
@@ -41,7 +46,7 @@ class _BERTopic:
             docs (List[str]): documents
         """
         model_n = transformer_name.split("/")[-1]
-        path_ = f"data/model-{docs_name}-{model_n}"
+        path_ = f"data/model-{docs_name}-{model_n}-{self._min_cluster_size}"
         if os.path.isfile(os.path.join(path_)):
             self.model = BERTopic.load(f"./{path_}")
         else:

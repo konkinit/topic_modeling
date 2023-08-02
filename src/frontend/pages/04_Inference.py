@@ -55,11 +55,11 @@ st.dataframe(
     ).reset_index(drop=True),
     use_container_width=True
 )
-with open(f"./data/topics_wc/topic_{topic_id}.png", "rb") as file:
+with open(f"./data/topics_wc/topic_{topic_id}.svg", "rb") as file:
     btn = st.download_button(
         label=f"Download topic {topic_id} wordcloud",
         data=file,
-        file_name=f"wc-topic-{topic_id}.png",
+        file_name=f"wc-topic-{topic_id}.svg",
         mime="image/png"
     )
 st.download_button(

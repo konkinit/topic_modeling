@@ -69,11 +69,20 @@ raw_docs, docs = (
     df_docs[f"clean_{target_var}"].tolist()
 )
 
+_min_cluster_size = st.number_input(
+    'Insert the desired minimal cluster size',
+    value=50,
+    help=f"Provide a number between 1 and {len(raw_docs)}. The default \
+    value used in the algorithm is 20."
+)
+
 sent_transformers_model = getEmbeddingsModel(
     sent_transformers_data
 )
 umap_model = getDimReductionModel(umap_data)
-hdbscan_model = getClusteringModel(hdbscan_data)
+hdbscan_model = getClusteringModel(
+    hdbscan_data(min_cluster_size=_min_cluster_size)
+)
 vectorizer_model = getTokenizer(
     tokenizer_data(language=language),
     list_context_sw
