@@ -30,7 +30,7 @@ topic_id = st.number_input(
     'Select a number for more details on the related topic',
     value=0,
     min_value=0,
-    max_value=n_topics-1
+    max_value=-1+n_topics
 )
 st.pyplot(
     bert_topic_inst.topic_plot(topic_id),

@@ -28,9 +28,11 @@ class _BERTopic:
             hdbscan_model=bertopic_params.hdbscan_model,
             vectorizer_model=bertopic_params.vectorizer_model,
             ctfidf_model=bertopic_params.ctfidf_model,
-            representation_model=bertopic_params.mmr_model
+            representation_model=bertopic_params.keybertinspired_model
         )
-        self._min_cluster_size = bertopic_params.hdbscan_model.min_cluster_size
+        self._min_cluster_size = (
+            bertopic_params.hdbscan_model.min_cluster_size,
+        )
 
     def fit_or_load(
             self,

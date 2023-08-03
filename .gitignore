@@ -5,6 +5,7 @@ model-*
 *.vscode
 *.csv
 *.png
+*.svg
 *.xlsx
 
 # Created by https://www.toptal.com/developers/gitignore/api/python

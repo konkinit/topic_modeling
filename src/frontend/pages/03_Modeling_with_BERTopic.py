@@ -71,7 +71,7 @@ raw_docs, docs = (
 
 _min_cluster_size = st.number_input(
     'Insert the desired minimal cluster size',
-    value=50,
+    value=20,
     help=f"Provide a number between 1 and {len(raw_docs)}. The default \
     value used in the algorithm is 20."
 )
@@ -96,8 +96,8 @@ bertopic_config = bertopic_data(
     hdbscan_model,
     vectorizer_model,
     ctfidf_model,
-    keybertinspired_model,
     mmr_model,
+    keybertinspired_model,
 )
 bert_topic_inst = _BERTopic(bertopic_config)
 

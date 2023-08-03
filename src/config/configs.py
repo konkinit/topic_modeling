@@ -40,7 +40,7 @@ class tfidf_data:
 
 @dataclass
 class mmr_data:
-    diversity: float = 0.4
+    diversity: float = 0.2
     top_n_words: int = 10
 
 
@@ -54,7 +54,7 @@ class umap_data:
 
 @dataclass
 class hdbscan_data:
-    min_cluster_size: int = 50
+    min_cluster_size: int = 20
     min_samples: int = None
     metric: str = "euclidean"
     cluster_selection_method: str = "eom"
