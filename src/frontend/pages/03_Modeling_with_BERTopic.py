@@ -12,7 +12,8 @@ from src.config import (
     tokenizer_data,
     mmr_data,
     bertopic_data,
-    st_sess_data
+    st_sess_data,
+    keybertinspired_data
 )
 from src.modeling import _BERTopic
 from src.utils import (
@@ -89,7 +90,7 @@ vectorizer_model = getTokenizer(
 )
 ctfidf_model = getTfidfTransformers(tfidf_data)
 mmr_model = getMaximalMarginalRelevance(mmr_data)
-keybertinspired_model = getKeyBERTInspired()
+keybertinspired_model = getKeyBERTInspired(keybertinspired_data)
 bertopic_config = bertopic_data(
     sent_transformers_model,
     umap_model,

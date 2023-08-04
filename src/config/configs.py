@@ -40,8 +40,16 @@ class tfidf_data:
 
 @dataclass
 class mmr_data:
-    diversity: float = 0.2
+    diversity: float = 0.4
     top_n_words: int = 10
+
+
+@dataclass
+class keybertinspired_data:
+    top_n_words: int = 10
+    nr_repr_docs: int = 5
+    nr_samples: int = 500
+    nr_candidate_words: int = 100
 
 
 @dataclass

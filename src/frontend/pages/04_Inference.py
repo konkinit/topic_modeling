@@ -37,7 +37,7 @@ st.pyplot(
     use_container_width=True
 )
 df_topic_stat = bert_topic_inst.topic_stat(topic_id)
-col1, col2, col3 = st.columns(3)
+col1, col2, col3 = st.columns([0.2, 0.2, 0.6])
 col1.metric(
     label="Topic Id", value=topic_id
 )
