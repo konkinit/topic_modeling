@@ -97,6 +97,7 @@ class _BERTopic:
         n_topics_ = max(self.model.topics_)
         return self.model.visualize_barchart(
             topics=list(range(n_topics_ + 1)),
+            title="",
             n_words=15,
             width=300,
             height=300

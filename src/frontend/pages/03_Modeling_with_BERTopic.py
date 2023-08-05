@@ -123,11 +123,15 @@ if n_topics_ > 0:
     bert_topic_inst._reduce_topics(docs, n_topics_)
     st.session_state[st_sess_data.N_TOPICS] = n_topics_
     st.plotly_chart(
-        bert_topic_inst._intertopic()
+        bert_topic_inst._intertopic(),
+        use_container_width=True
     )
     st.plotly_chart(
         bert_topic_inst._barchart(),
         use_container_width=True
+    )
+    bert_topic_inst._barchart().write_image(
+        "./data/topics_wc/topics_representative_words.pdf"
     )
     st.session_state[st_sess_data.BERTOPIC_INST] = bert_topic_inst
 if n_topics_ == -1:
@@ -135,5 +139,8 @@ if n_topics_ == -1:
     st.plotly_chart(
         bert_topic_inst._barchart(),
         use_container_width=True
+    )
+    bert_topic_inst._barchart().write_image(
+        "./data/topics_wc/topics_representative_words.pdf"
     )
     st.session_state[st_sess_data.BERTOPIC_INST] = bert_topic_inst
