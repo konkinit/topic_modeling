@@ -5,7 +5,7 @@ do
     esac
 done
 
-if [ $env == 'github_action_env' ]
+if [ $env == 'ci_environment' ]
 then
     pip install --user --upgrade pip
 
@@ -13,7 +13,6 @@ then
 
     pip install --user -r requirements.txt
 
-    pip install --user cuml-cu11 --extra-index-url=https://pypi.nvidia.com
 else
     pip install --upgrade pip
 
