@@ -25,13 +25,19 @@ st.markdown(
 st.subheader("How does the algorithm work?")
 
 st.markdown(
-    " A BERTopic model is a stack of process and a default model is built \
-    with six steps wwhich are:\n\
-    - `Embeddings`: \n\
-    - `Dimensionality Reduction`: \n\
-    - `Clustering`: \n\
-    - `Tokenizer`: \n\
-    - `Weithing scheme`: "
+    """
+    A BERTopic model is a stack of processes and a default model is built \
+    with six steps which are:
+    - `Embeddings`: creation of embeddings using transformers ;
+    - `Dimensionality Reduction`: reduction of embeddings representations \
+        to lower space ;
+    - `Clustering`: clustering douments embeddings to obtain groups of \
+        similar docs ;
+    - `Tokenizer`: tokenization of documents ;
+    - `Weighting scheme`: leverage TF-IDF algorithm to calculate a weight \
+        for each term ;
+    - `Fine-Tuning`: fine tune the former topic representation ;
+    """
 )
 
 
@@ -45,7 +51,8 @@ uploaded_file = st.file_uploader(
     "Choose the dataset",
     type=['csv'],
     help="It is recommended to upload a dataset in `.csv` \
-    format with `|` as separator."
+    format with `|` as separator and at least two columns: \
+    the `date` and the `verbatim` ones."
 )
 if uploaded_file is not None:
     df_docs = read_csv(uploaded_file, sep="|", encoding="utf-8")
