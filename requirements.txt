@@ -2,7 +2,8 @@ black
 pandas
 seaborn
 streamlit
-bertopic
+bertopic[flair]
+hdbscan
 nltk
 wordcloud
 multidict

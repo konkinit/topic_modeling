@@ -23,7 +23,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          bash package_installing.sh -e 'ci_environment'
+          bash package_installing.sh
       - name: Lint with flake8
         run: |
           # stop the build if there are Python syntax errors or undefined names

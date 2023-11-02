@@ -151,14 +151,11 @@ class _BERTopic:
     def topic_plot(
             self,
             topic_id: int
-    ) -> plt.figure:
+    ) -> None:
         """Produce plot of a given topic
 
         Args:
             topic_id (int): topic id
-
-        Returns:
-            plt.figure: topic representative words plot
         """
         fig = plt.figure(figsize=(13.5, 6))
         gs = gridspec.GridSpec(1, 2, width_ratios=[2, 1])
@@ -180,21 +177,3 @@ class _BERTopic:
         #    bbox_inches="tight", format="pgf"
         # )
         return fig
-
-    def _topic_plot(
-            self,
-            topic_id: int
-    ) -> None:
-        """Produce keywords histogram of a given topic
-
-        Args:
-            topic_id (int): topic id
-        """
-        fig, ax = plt.subplots(figsize=(4.5, 5))
-
-        visualize_topic_barchart(ax, self.model, topic_id, 10)
-        fig.tight_layout()
-        fig.savefig(
-            f"./data/topics_wc/topic_keywords_{topic_id}.pdf",
-            format="pdf", bbox_inches="tight"
-        )

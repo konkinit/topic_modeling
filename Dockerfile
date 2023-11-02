@@ -1,4 +1,4 @@
-FROM rapidsai/rapidsai:cuda11.8-runtime-ubuntu22.04-py3.10
+FROM python:3.10-slim
 
 # Define args
 ARG USERNAME=appuser

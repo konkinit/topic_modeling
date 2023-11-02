@@ -30,7 +30,7 @@ topic_id = st.number_input(
     'Select a number for more details on the related topic',
     value=0,
     min_value=0,
-    max_value=-2+n_topics
+    max_value=-1+n_topics
 )
 st.pyplot(
     bert_topic_inst.topic_plot(topic_id),
@@ -61,14 +61,6 @@ with open(f"./data/topics_wc/topic_{topic_id}.svg", "rb") as file:
         data=file,
         file_name=f"wc-topic-{topic_id}.svg",
         mime="image/png"
-    )
-bert_topic_inst._topic_plot(topic_id)
-with open(f"./data/topics_wc/topic_keywords_{topic_id}.pdf", "rb") as file:
-    st.download_button(
-        label=f"Download topic {topic_id} keywords histogram",
-        data=file,
-        file_name=f"keywords-topic-{topic_id}.pdf",
-        mime="pdf"
     )
 st.download_button(
     label="Download representative docs as CSV",
