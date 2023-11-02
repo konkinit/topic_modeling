@@ -3,10 +3,6 @@
 </br>
 </h1>
 
-<p align="center">
-  The project consists of a packaging of BERTopic modeling with Streamlit framework. Instructions and more
-  details are provided in the app ...
-</p>
 
 <p align="center">
   <img alt="GitHub Workflow Status" src="https://img.shields.io/github/actions/workflow/status/konkinit/topic_modeling/topic_app_ci.yaml?label=Test%20%26%20Build%20Image&style=for-the-badge">
@@ -24,20 +20,29 @@
 
 ## ToDo
 
-- Fix Docker CI
-- Tune BERTopic hyperparams
 - Write Unit Tests ...
 
 
+## Project Description
+
+The project combines the power of [BERTopic](https://maartengr.github.io/BERTopic/index.html) and 
+[Streamlit](https://streamlit.io/) to deliver an interface performing an end-to-end topic modeling.
+Instructions and more details are provided in the app ...
+
+<img src="./data/bertopic_app.png" alt="archi_plot">
+
 ## Getting Started
 
-- Through Docker Image:
+- Through Docker Image: the image relies on a RAPIDS - Open GPU Data Science image
+consequently a GPU hardware is suitable for running. Visit the following link to install the 
+[nvidia-container-toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)
+
 ```bash
 docker pull kidrissa/bertopicapp:latest
 ```
 
 ```bash
-docker run -p 8501:8501 -d kidrissa/bertopicapp:latest
+docker run --gpus all -p 8501:8501 -d kidrissa/bertopicapp:latest 
 ```
 
 - Through Repo cloning (to be performed preferable on a Linux-based OS):

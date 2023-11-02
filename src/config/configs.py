@@ -45,6 +45,14 @@ class mmr_data:
 
 
 @dataclass
+class keybertinspired_data:
+    top_n_words: int = 10
+    nr_repr_docs: int = 5
+    nr_samples: int = 500
+    nr_candidate_words: int = 100
+
+
+@dataclass
 class umap_data:
     n_neighbors: int = 10
     n_components: int = 5
@@ -54,7 +62,8 @@ class umap_data:
 
 @dataclass
 class hdbscan_data:
-    min_cluster_size: int = 100
+    min_cluster_size: int = 20
+    min_samples: int = None
     metric: str = "euclidean"
     cluster_selection_method: str = "eom"
     prediction_data: bool = True
@@ -71,9 +80,6 @@ class bertopic_data:
     mmr_model: MaximalMarginalRelevance
     keybertinspired_model: KeyBERTInspired
     nr_topics: Union[str, int] = "auto"
-    top_n_words: int = 10
-    n_gram_range: tuple = (1, 2)
-    min_topic_size: int = 100
 
 
 @dataclass

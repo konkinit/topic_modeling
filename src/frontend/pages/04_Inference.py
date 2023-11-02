@@ -30,14 +30,14 @@ topic_id = st.number_input(
     'Select a number for more details on the related topic',
     value=0,
     min_value=0,
-    max_value=n_topics-1
+    max_value=-1+n_topics
 )
 st.pyplot(
     bert_topic_inst.topic_plot(topic_id),
     use_container_width=True
 )
 df_topic_stat = bert_topic_inst.topic_stat(topic_id)
-col1, col2, col3 = st.columns(3)
+col1, col2, col3 = st.columns([0.2, 0.2, 0.6])
 col1.metric(
     label="Topic Id", value=topic_id
 )
@@ -55,11 +55,11 @@ st.dataframe(
     ).reset_index(drop=True),
     use_container_width=True
 )
-with open(f"./data/topics_wc/topic_{topic_id}.png", "rb") as file:
+with open(f"./data/topics_wc/topic_{topic_id}.svg", "rb") as file:
     btn = st.download_button(
         label=f"Download topic {topic_id} wordcloud",
         data=file,
-        file_name=f"wc-topic-{topic_id}.png",
+        file_name=f"wc-topic-{topic_id}.svg",
         mime="image/png"
     )
 st.download_button(

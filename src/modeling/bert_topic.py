@@ -5,6 +5,7 @@ from matplotlib import gridspec
 from bertopic import BERTopic
 from pandas import concat, DataFrame
 from plotly.graph_objects import Figure
+from seaborn import set_theme
 from typing import List
 if os.getcwd() not in sys.path:
     sys.path.append(os.getcwd())
@@ -15,19 +16,22 @@ from src.utils import (
 )
 
 
+set_theme()
+
+
 class _BERTopic:
     def __init__(self, bertopic_params: bertopic_data) -> None:
         self.model = BERTopic(
             nr_topics=bertopic_params.nr_topics,
-            top_n_words=bertopic_params.top_n_words,
-            n_gram_range=bertopic_params.n_gram_range,
-            min_topic_size=bertopic_params.min_topic_size,
             umap_model=bertopic_params.umap_model,
             embedding_model=bertopic_params.sent_transformers_model,
             hdbscan_model=bertopic_params.hdbscan_model,
             vectorizer_model=bertopic_params.vectorizer_model,
             ctfidf_model=bertopic_params.ctfidf_model,
-            representation_model=bertopic_params.mmr_model
+            representation_model=bertopic_params.keybertinspired_model
+        )
+        self._min_cluster_size = (
+            bertopic_params.hdbscan_model.min_cluster_size,
         )
 
     def fit_or_load(
@@ -44,7 +48,7 @@ class _BERTopic:
             docs (List[str]): documents
         """
         model_n = transformer_name.split("/")[-1]
-        path_ = f"data/model-{docs_name}-{model_n}"
+        path_ = f"data/model-{docs_name}-{model_n}-{self._min_cluster_size}"
         if os.path.isfile(os.path.join(path_)):
             self.model = BERTopic.load(f"./{path_}")
         else:
@@ -93,6 +97,7 @@ class _BERTopic:
         n_topics_ = max(self.model.topics_)
         return self.model.visualize_barchart(
             topics=list(range(n_topics_ + 1)),
+            title="",
             n_words=15,
             width=300,
             height=300

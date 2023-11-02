@@ -1,12 +1,13 @@
 black
 pandas
+seaborn
 streamlit
-bertopic[flair]
-hdbscan
+bertopic
 nltk
 wordcloud
 multidict
 spacy
 spacy_langdetect
 stop-words
+kaleido
 protobuf==3.20.3

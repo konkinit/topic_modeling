@@ -8,7 +8,8 @@ from .configs import (
     mmr_data,
     bertopic_data,
     st_sess_data,
-    parallelism_data
+    parallelism_data,
+    keybertinspired_data
 )
 
 
@@ -22,5 +23,6 @@ __all__ = [
     "mmr_data",
     "bertopic_data",
     "st_sess_data",
+    'keybertinspired_data',
     "parallelism_data"
 ]

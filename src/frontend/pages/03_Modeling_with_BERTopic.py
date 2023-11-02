@@ -12,7 +12,8 @@ from src.config import (
     tokenizer_data,
     mmr_data,
     bertopic_data,
-    st_sess_data
+    st_sess_data,
+    keybertinspired_data
 )
 from src.modeling import _BERTopic
 from src.utils import (
@@ -30,8 +31,14 @@ from src.utils import (
 st.title("Modeling with BERTopic")
 st.markdown(
     """
-    This part is dedicated for fitting the stack of models
-    topic generation. After initialising the model ,
+    This part is dedicated for fitting the stack of models for
+    topic generation. Each composed sub-model is initialised with the
+    default values as the following:
+
+
+    To improve topic representation , tuning can be done
+    on HDBSCAN hyperparameters mainly `min_cluster_size` and
+    `min_samples`
     """
 )
 
@@ -63,26 +70,35 @@ raw_docs, docs = (
     df_docs[f"clean_{target_var}"].tolist()
 )
 
+_min_cluster_size = st.number_input(
+    'Insert the desired minimal cluster size',
+    value=20,
+    help=f"Provide a number between 1 and {len(raw_docs)}. The default \
+    value used in the algorithm is 20."
+)
+
 sent_transformers_model = getEmbeddingsModel(
     sent_transformers_data
 )
 umap_model = getDimReductionModel(umap_data)
-hdbscan_model = getClusteringModel(hdbscan_data)
+hdbscan_model = getClusteringModel(
+    hdbscan_data(min_cluster_size=_min_cluster_size)
+)
 vectorizer_model = getTokenizer(
     tokenizer_data(language=language),
     list_context_sw
 )
 ctfidf_model = getTfidfTransformers(tfidf_data)
 mmr_model = getMaximalMarginalRelevance(mmr_data)
-keybertinspired_model = getKeyBERTInspired()
+keybertinspired_model = getKeyBERTInspired(keybertinspired_data)
 bertopic_config = bertopic_data(
     sent_transformers_model,
     umap_model,
     hdbscan_model,
     vectorizer_model,
     ctfidf_model,
-    keybertinspired_model,
     mmr_model,
+    keybertinspired_model,
 )
 bert_topic_inst = _BERTopic(bertopic_config)
 
@@ -98,7 +114,7 @@ st.plotly_chart(
 n_topics = max(bert_topic_inst.model.topics_)
 
 n_topics_ = st.number_input(
-    'Insert the desied number of topics',
+    'Insert the desired number of topics',
     value=0,
     help=f"Provide a number between 1 and {n_topics}. If you are \
     satisfyed with the current number of topic enter -1."
@@ -107,11 +123,15 @@ if n_topics_ > 0:
     bert_topic_inst._reduce_topics(docs, n_topics_)
     st.session_state[st_sess_data.N_TOPICS] = n_topics_
     st.plotly_chart(
-        bert_topic_inst._intertopic()
+        bert_topic_inst._intertopic(),
+        use_container_width=True
     )
     st.plotly_chart(
         bert_topic_inst._barchart(),
         use_container_width=True
+    )
+    bert_topic_inst._barchart().write_image(
+        "./data/topics_wc/topics_representative_words.pdf"
     )
     st.session_state[st_sess_data.BERTOPIC_INST] = bert_topic_inst
 if n_topics_ == -1:
@@ -119,5 +139,8 @@ if n_topics_ == -1:
     st.plotly_chart(
         bert_topic_inst._barchart(),
         use_container_width=True
+    )
+    bert_topic_inst._barchart().write_image(
+        "./data/topics_wc/topics_representative_words.pdf"
     )
     st.session_state[st_sess_data.BERTOPIC_INST] = bert_topic_inst

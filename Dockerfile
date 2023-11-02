@@ -1,4 +1,4 @@
-FROM python:3.10-slim
+FROM rapidsai/rapidsai:cuda11.8-runtime-ubuntu22.04-py3.10
 
 # Define args
 ARG USERNAME=appuser
@@ -27,7 +27,7 @@ WORKDIR /home/${USERNAME}/topic_modeling
 
 RUN sudo apt-get -y install gcc
 
-RUN bash package_installing.sh -e 'github_action_env'
+RUN bash package_installing.sh -e 'ci_environment'
 
 EXPOSE 8501
 

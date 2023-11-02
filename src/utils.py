@@ -38,7 +38,8 @@ from src.config import (
     hdbscan_data,
     tfidf_data,
     tokenizer_data,
-    mmr_data
+    mmr_data,
+    keybertinspired_data
 )
 
 
@@ -141,6 +142,7 @@ def getClusteringModel(params: hdbscan_data) -> HDBSCAN:
     """
     return HDBSCAN(
         min_cluster_size=params.min_cluster_size,
+        min_samples=params.min_samples,
         metric=params.metric,
         cluster_selection_method=params.cluster_selection_method,
         prediction_data=params.prediction_data,
@@ -211,13 +213,21 @@ def getMaximalMarginalRelevance(
     )
 
 
-def getKeyBERTInspired() -> KeyBERTInspired:
+def getKeyBERTInspired(params: keybertinspired_data) -> KeyBERTInspired:
     """Configure and return a KeyBERTInspired model
+
+    Args:
+        params (keybertinspired_data): model parameters
 
     Returns:
         KeyBERTInspired: configured model for representation
     """
-    return KeyBERTInspired()
+    return KeyBERTInspired(
+        top_n_words=params.top_n_words,
+        nr_repr_docs=params.nr_repr_docs,
+        nr_samples=params.nr_samples,
+        nr_candidate_words=params.nr_candidate_words
+    )
 
 
 def context_stopwords(
