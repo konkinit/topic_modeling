@@ -33,8 +33,8 @@ Instructions and more details are provided in the app ...
 
 ## Getting Started
 
-- Through Docker Image: the image relies on a RAPIDS - Open GPU Data Science image
-consequently a GPU hardware is suitable for running. Visit the following link to install the 
+- Through Docker Image: the image extends a RAPIDS - Open GPU Data Science image
+consequently a GPU hardware is required for running the container. Visit the following link to install the 
 [nvidia-container-toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)
 
 ```bash
