@@ -37,6 +37,7 @@ jobs:
 
   build_image:
     name: Docker Image Build
+    needs: lint_and_test
     runs-on: ubuntu-latest
     
     steps:
