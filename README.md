@@ -33,8 +33,9 @@ Instructions and more details are provided in the app ...
 
 ## Getting Started
 
-- Through Docker Image: the image extends a RAPIDS - Open GPU Data Science image
-consequently a GPU hardware is required for running the container. Visit the following link to install the 
+- Through Docker Image: the image extends a Pytorch image while installing on this layer some 
+RAPIDS packages such as cuML and cuDF. RAPIDS - Open GPU Data Science packages require GPU hardware 
+to run the container. Visit the following link to install the 
 [nvidia-container-toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)
 
 ```bash
@@ -65,7 +66,7 @@ streamlit run ./src/frontend/Onboarding.py
 
 ## Continious Integration
 
-One continous integration (CI) procedure with 2 jobs mainly is crafted and launched at 
+One continious integration (CI) procedure with 2 jobs mainly is crafted and launched at 
 every push to the main branch:
 
 - Pytest collects the test from the tests folder and executes them
