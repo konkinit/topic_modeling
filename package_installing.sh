@@ -20,7 +20,9 @@ else
 
     pip install -r requirements.txt
 
-    pip install cuml-cu11 --extra-index-url=https://pypi.nvidia.com
+    pip install \
+    --extra-index-url=https://pypi.nvidia.com \
+    cudf-cu12==23.12.* cuml-cu12==23.12.*
 fi
 
 python -m spacy download fr_core_news_md
