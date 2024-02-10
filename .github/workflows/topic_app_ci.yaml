@@ -8,7 +8,8 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  lint_and_test:
+    name: Lint and Test
     runs-on: ubuntu-22.04
     strategy:
       matrix:
@@ -33,6 +34,13 @@ jobs:
       - name: Test with pytest
         run: |
           pytest
+
+  build_image:
+    name: Docker Image Build
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
       - name: Build Docker Image
         run: |
           docker build . --file Dockerfile --tag kidrissa/bertopicapp:latest
