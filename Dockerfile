@@ -4,7 +4,7 @@ COPY . /topic_modeling
 
 WORKDIR /topic_modeling
 
-RUN sudo apt-get -y install gcc
+RUN apt-get -y install gcc
 
 RUN bash package_installing.sh -e 'docker_imaging'
 
