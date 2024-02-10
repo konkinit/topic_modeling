@@ -1,5 +1,7 @@
 FROM pytorch/pytorch:2.2.0-cuda12.1-cudnn8-runtime
 
+RUN sudo apt-get update
+
 COPY . /topic_modeling
 
 WORKDIR /topic_modeling
